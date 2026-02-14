@@ -65,10 +65,10 @@
     ],
 
     "colors": [
-      { "name": "Mint Green", "code": "#98FF98" },
-      { "name": "Moonlight Blue", "code": "#4A90E2" },
-      { "name": "Midnight Black", "code": "#0B0F19" },
-      { "name": "Twilight Orange", "code": "#FF7A1A" }
+      { "name": "Mint Green", "code": "#afced1" },
+      { "name": "Moonlight Blue", "code": "#1f307a" },
+      { "name": "Midnight Black", "code": "#525252" },
+      { "name": "Twilight Orange", "code": "#cd7860" }
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.mi.com/ph/product/redmi-15c/",
