@@ -1,0 +1,145 @@
+[
+  {
+    "id": "poco-m7",
+    "name": "POCO M7",
+    "images": [
+      "products/poco-m7-1.png",
+      "products/poco-m7-2.png",
+      "products/poco-m7-3.png",
+      "products/poco-m7-4.png"
+    ],
+    "colors": [
+      { "name": "Blue", "code": "#1E40AF" },
+      { "name": "Silver", "code": "#BFC5CE" },
+      { "name": "Black", "code": "#1A1A1A" }
+    ],
+    "note": "Reliable Everyday Performance",
+    "specs": "• Chipset: MediaTek Helio G85 (12nm)\n• CPU: Octa-core (2x Cortex-A75 + 6x Cortex-A55)\n• GPU: Mali-G52 MC2\n• Display: 6.6\" IPS LCD, FHD+ (1080 x 2408)\n• RAM: 4GB / 6GB\n• Storage: 64GB / 128GB (expandable via microSD)\n• Rear Camera: 50MP AI Dual Camera\n• Front Camera: 8MP\n• Battery: 5000mAh (18W Fast Charging, USB-C)\n• Operating System: Android 13 (MIUI for POCO)\n• Connectivity: 4G LTE, Dual SIM, Wi-Fi, Bluetooth 5.0\n• Security: Side-mounted Fingerprint Sensor, Face Unlock",
+
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["6GB", "8GB", "12GB"],
+
+    "availableVariants": [
+      { "color": "Blue", "storage": "128GB", "ram": "6GB", "price": 7499 },
+      { "color": "Silver", "storage": "256GB", "ram": "8GB", "price": 8499 }
+    ]
+  },
+
+  {
+    "id": "nubia-neo-3",
+    "name": "Nubia Neo 3",
+    "images": [
+      "products/nubia-neo-3-1.png",
+      "products/nubia-neo-3-2.png",
+      "products/nubia-neo-3-3.png",
+      "products/nubia-neo-3-4.png"
+    ],
+    "colors": [
+      { "name": "Shadow Black", "code": "#121212" },
+      { "name": "Titanium Gold", "code": "#C5A100" },
+      { "name": "Cyber Silver", "code": "#AEB6C1" }
+    ],
+    "note": "5G Gaming Phone with Shoulder Triggers",
+    "specs": "• Chipset: Unisoc T820 (6nm)\n• CPU: Octa-core (1x Cortex-A76 + 3x Cortex-A76 + 4x Cortex-A55)\n• GPU: Mali-G57\n• Display: 6.6\" IPS LCD, 120Hz, FHD+\n• Memory: 8GB RAM\n• Storage: 128GB UFS 3.1\n• Rear Camera: 50MP + 2MP\n• Front Camera: 16MP\n• Battery: 4500mAh (22.5W Fast Charging)\n• Operating System: Android 13 (MyOS)\n• Connectivity: 4G LTE",
+
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["6GB", "8GB", "12GB"],
+
+    "availableVariants": [
+      { "color": "Shadow Black", "storage": "128GB", "ram": "8GB", "price": 6899 },
+      { "color": "Cyber Silver", "storage": "128GB", "ram": "8GB", "price": 6899 },
+      { "color": "Titanium Gold", "storage": "128GB", "ram": "8GB", "price": 6899 }
+    ]
+  },
+
+  {
+    "id": "redmi-15c",
+    "name": "Redmi 15C",
+    "images": [
+      "products/redmi-15c-1.png",
+      "products/redmi-15c-2.png",
+      "products/redmi-15c-3.png",
+      "products/redmi-15c-4.png",
+      "products/redmi-15c-5.png"
+    ],
+
+    "colors": [
+      { "name": "Mint Green", "code": "#98FF98" },
+      { "name": "Moonlight Blue", "code": "#4A90E2" },
+      { "name": "Midnight Black", "code": "#0B0F19" },
+      { "name": "Twilight Orange", "code": "#FF7A1A" }
+    ],
+    "note": "Balanced Everyday Performance",
+    "specs": "• Chipset: Unisoc T616 (12nm)\n• CPU: Octa-core (2x Cortex-A75 + 6x Cortex-A55)\n• GPU: Mali-G57 MC2\n• Display: 6.74\" IPS LCD, 90Hz, 720 x 1650 px (~268ppi)\n• RAM: 6GB / 8GB LPDDR4X\n• Internal Storage: 128GB / 256GB UFS 2.1\n• Expandable Storage: microSD up to 1TB\n• Rear Camera: 50MP f/1.8 (AF) + 2MP Depth\n• Front Camera: 8MP f/2.0\n• Battery: 5000mAh\n• Charging: 18W Wired Fast Charging\n• Operating System: Android 13 (MIUI)\n• Network: Dual SIM 4G LTE\n• Connectivity: Wi-Fi 802.11 b/g/n, Bluetooth 5.0, GPS\n• Sensors: Rear Fingerprint, Accelerometer, Proximity, Compass\n• Audio: 3.5mm Headphone Jack, Loudspeaker",
+
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["4GB", "6GB", "8GB"],
+    "availableVariants": [
+      { "color": "Mint Green", "storage": "128GB", "ram": "6GB", "price": 5799},
+      { "color": "Mint Green", "storage": "128GB", "ram": "4GB", "price": 5299 },
+      { "color": "Midnight Black", "storage": "256GB", "ram": "8GB", "price": 6599 },
+      { "color": "Midnight Black", "storage": "128GB", "ram": "4GB", "price": 5299 },
+      { "color": "Moonlight Blue", "storage": "256GB", "ram": "8GB", "price": 6599 },
+      { "color": "Moonlight Blue", "storage": "128GB", "ram": "6GB", "price": 5799 },
+      { "color": "Twilight Orange", "storage": "256GB", "ram": "8GB", "price": 6599 },
+      { "color": "Twilight Orange", "storage": "128GB", "ram": "6GB", "price": 5799 }
+    ]
+  },
+
+  {
+    "id": "xiaomi-poco-c85",
+    "name": "Xiaomi Poco C85",
+    "images": [
+      "products/xiaomi-poco-c85-1.png",
+      "products/xiaomi-poco-c85-2.png",
+      "products/xiaomi-poco-c85-3.png",
+      "products/xiaomi-poco-c85-4.png"
+    ],
+    "colors": [
+      { "name": "Black", "code": "#121212" },
+      { "name": "Green", "code": "#2E8B57" },
+      { "name": "Purple", "code": "#6A0DAD" }
+    ],
+    "note": "Helio G99 Midrange Power",
+    "specs": "• Chipset: MediaTek Helio G99 (6nm)\n• CPU: Octa-core (2x Cortex-A76 + 6x Cortex-A55)\n• GPU: Mali-G57 MC2\n• Display: 6.67\" AMOLED, 120Hz, FHD+ (1080 x 2400)\n• RAM: 8GB / 12GB LPDDR4X\n• Storage: 128GB / 256GB UFS 2.2\n• Rear Camera: 108MP Main + 8MP Ultra-wide + 2MP Macro\n• Front Camera: 16MP\n• Battery: 6000mAh (33W Fast Charging)\n• Operating System: Android 14 (MIUI)\n• Connectivity: 4G LTE, Wi-Fi 5, Bluetooth 5.3, GPS\n• Security: Side-mounted Fingerprint, Face Unlock",
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["6GB", "8GB", "12GB"],
+    "availableVariants": [
+      { "color": "Black", "storage": "128GB", "ram": "6GB", "price": 5499 },
+      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 6499 },
+      { "color": "Green", "storage": "128GB", "ram": "6GB", "price": 5499 },
+      { "color": "Green", "storage": "256GB", "ram": "8GB", "price": 6499 },
+      { "color": "Purple", "storage": "256GB", "ram": "8GB", "price": 6499 },
+      { "color": "Purple", "storage": "128GB", "ram": "6GB", "price": 5499 }
+    ]
+  },
+
+  {
+    "id": "xiaomi-poco-c85",
+    "name": "Xiaomi Poco C85",
+    "images": [
+      "products/xiaomi-poco-c85-1.png",
+      "products/xiaomi-poco-c85-2.png",
+      "products/xiaomi-poco-c85-3.png",
+      "products/xiaomi-poco-c85-4.png"
+    ],
+    "colors": [
+      { "name": "Black", "code": "#121212" },
+      { "name": "Green", "code": "#2E8B57" },
+      { "name": "Purple", "code": "#6A0DAD" }
+    ],
+    "note": "Helio G99 Midrange Power",
+    "specs": "• Chipset: MediaTek Helio G99 (6nm)\n• CPU: Octa-core (2x Cortex-A76 + 6x Cortex-A55)\n• GPU: Mali-G57 MC2\n• Display: 6.67\" AMOLED, 120Hz, FHD+ (1080 x 2400)\n• RAM: 8GB / 12GB LPDDR4X\n• Storage: 128GB / 256GB UFS 2.2\n• Rear Camera: 108MP Main + 8MP Ultra-wide + 2MP Macro\n• Front Camera: 16MP\n• Battery: 6000mAh (33W Fast Charging)\n• Operating System: Android 14 (MIUI)\n• Connectivity: 4G LTE, Wi-Fi 5, Bluetooth 5.3, GPS\n• Security: Side-mounted Fingerprint, Face Unlock",
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["6GB", "8GB", "12GB"],
+    "availableVariants": [
+      { "color": "Black", "storage": "128GB", "ram": "6GB", "price": 5499 },
+      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 6499 },
+      { "color": "Green", "storage": "128GB", "ram": "6GB", "price": 5499 },
+      { "color": "Green", "storage": "256GB", "ram": "8GB", "price": 6499 },
+      { "color": "Purple", "storage": "256GB", "ram": "8GB", "price": 6499 },
+      { "color": "Purple", "storage": "128GB", "ram": "6GB", "price": 5499 }
+    ]
+  }
+
+]
