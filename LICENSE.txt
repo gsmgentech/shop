@@ -1,0 +1,9 @@
+Copyright © 2026 gentechserver.com
+
+All rights reserved.
+
+This source code, including all associated files, designs, and assets,
+is the exclusive property of the author.
+
+No part of this repository may be copied, modified, distributed,
+or used in any form without explicit written permission from the author.
