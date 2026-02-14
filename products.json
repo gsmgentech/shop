@@ -13,8 +13,8 @@
       { "name": "Silver", "code": "#BFC5CE" },
       { "name": "Black", "code": "#1A1A1A" }
     ],
-    "note": "Reliable Everyday Performance",
-    "specs": "• Chipset: MediaTek Helio G85 (12nm)\n• CPU: Octa-core (2x Cortex-A75 + 6x Cortex-A55)\n• GPU: Mali-G52 MC2\n• Display: 6.6\" IPS LCD, FHD+ (1080 x 2408)\n• RAM: 4GB / 6GB\n• Storage: 64GB / 128GB (expandable via microSD)\n• Rear Camera: 50MP AI Dual Camera\n• Front Camera: 8MP\n• Battery: 5000mAh (18W Fast Charging, USB-C)\n• Operating System: Android 13 (MIUI for POCO)\n• Connectivity: 4G LTE, Dual SIM, Wi-Fi, Bluetooth 5.0\n• Security: Side-mounted Fingerprint Sensor, Face Unlock",
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.po.co/global/product/poco-m7/specs/",
 
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
@@ -29,18 +29,18 @@
     "id": "nubia-neo-3",
     "name": "Nubia Neo 3",
     "images": [
-      "products/nubia-neo-3-1.png",
       "products/nubia-neo-3-2.png",
       "products/nubia-neo-3-3.png",
-      "products/nubia-neo-3-4.png"
+      "products/nubia-neo-3-4.png",
+      "products/nubia-neo-3-1.png"
     ],
     "colors": [
       { "name": "Shadow Black", "code": "#121212" },
       { "name": "Titanium Gold", "code": "#C5A100" },
       { "name": "Cyber Silver", "code": "#AEB6C1" }
     ],
-    "note": "5G Gaming Phone with Shoulder Triggers",
-    "specs": "• Chipset: Unisoc T820 (6nm)\n• CPU: Octa-core (1x Cortex-A76 + 3x Cortex-A76 + 4x Cortex-A55)\n• GPU: Mali-G57\n• Display: 6.6\" IPS LCD, 120Hz, FHD+\n• Memory: 8GB RAM\n• Storage: 128GB UFS 3.1\n• Rear Camera: 50MP + 2MP\n• Front Camera: 16MP\n• Battery: 4500mAh (22.5W Fast Charging)\n• Operating System: Android 13 (MyOS)\n• Connectivity: 4G LTE",
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.pinoytechnoguide.com/smartphones/nubia-neo-3",
 
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
@@ -69,8 +69,8 @@
       { "name": "Midnight Black", "code": "#0B0F19" },
       { "name": "Twilight Orange", "code": "#FF7A1A" }
     ],
-    "note": "Balanced Everyday Performance",
-    "specs": "• Chipset: Unisoc T616 (12nm)\n• CPU: Octa-core (2x Cortex-A75 + 6x Cortex-A55)\n• GPU: Mali-G57 MC2\n• Display: 6.74\" IPS LCD, 90Hz, 720 x 1650 px (~268ppi)\n• RAM: 6GB / 8GB LPDDR4X\n• Internal Storage: 128GB / 256GB UFS 2.1\n• Expandable Storage: microSD up to 1TB\n• Rear Camera: 50MP f/1.8 (AF) + 2MP Depth\n• Front Camera: 8MP f/2.0\n• Battery: 5000mAh\n• Charging: 18W Wired Fast Charging\n• Operating System: Android 13 (MIUI)\n• Network: Dual SIM 4G LTE\n• Connectivity: Wi-Fi 802.11 b/g/n, Bluetooth 5.0, GPS\n• Sensors: Rear Fingerprint, Accelerometer, Proximity, Compass\n• Audio: 3.5mm Headphone Jack, Loudspeaker",
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.mi.com/ph/product/redmi-15c/",
 
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["4GB", "6GB", "8GB"],
@@ -100,8 +100,9 @@
       { "name": "Green", "code": "#2E8B57" },
       { "name": "Purple", "code": "#6A0DAD" }
     ],
-    "note": "Helio G99 Midrange Power",
-    "specs": "• Chipset: MediaTek Helio G99 (6nm)\n• CPU: Octa-core (2x Cortex-A76 + 6x Cortex-A55)\n• GPU: Mali-G57 MC2\n• Display: 6.67\" AMOLED, 120Hz, FHD+ (1080 x 2400)\n• RAM: 8GB / 12GB LPDDR4X\n• Storage: 128GB / 256GB UFS 2.2\n• Rear Camera: 108MP Main + 8MP Ultra-wide + 2MP Macro\n• Front Camera: 16MP\n• Battery: 6000mAh (33W Fast Charging)\n• Operating System: Android 14 (MIUI)\n• Connectivity: 4G LTE, Wi-Fi 5, Bluetooth 5.3, GPS\n• Security: Side-mounted Fingerprint, Face Unlock",
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.mi.com/ph/product/poco-c85/",
+
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
     "availableVariants": [
@@ -115,30 +116,106 @@
   },
 
   {
-    "id": "xiaomi-poco-c85",
-    "name": "Xiaomi Poco C85",
+    "id": "realme-c71",
+    "name": "Realme C71",
     "images": [
-      "products/xiaomi-poco-c85-1.png",
-      "products/xiaomi-poco-c85-2.png",
-      "products/xiaomi-poco-c85-3.png",
-      "products/xiaomi-poco-c85-4.png"
+      "products/realme-c71-1.png",
+      "products/realme-c71-2.png",
+      "products/realme-c71-3.png",
+      "products/realme-c71-4.png"
     ],
     "colors": [
-      { "name": "Black", "code": "#121212" },
-      { "name": "Green", "code": "#2E8B57" },
-      { "name": "Purple", "code": "#6A0DAD" }
+      { "name": "White Swan", "code": "#E3E3E3" },
+      { "name": "Forest Owl", "code": "#2F4F4F" }
     ],
-    "note": "Helio G99 Midrange Power",
-    "specs": "• Chipset: MediaTek Helio G99 (6nm)\n• CPU: Octa-core (2x Cortex-A76 + 6x Cortex-A55)\n• GPU: Mali-G57 MC2\n• Display: 6.67\" AMOLED, 120Hz, FHD+ (1080 x 2400)\n• RAM: 8GB / 12GB LPDDR4X\n• Storage: 128GB / 256GB UFS 2.2\n• Rear Camera: 108MP Main + 8MP Ultra-wide + 2MP Macro\n• Front Camera: 16MP\n• Battery: 6000mAh (33W Fast Charging)\n• Operating System: Android 14 (MIUI)\n• Connectivity: 4G LTE, Wi-Fi 5, Bluetooth 5.3, GPS\n• Security: Side-mounted Fingerprint, Face Unlock",
-    "storageOptions": ["128GB", "256GB", "512GB"],
-    "ramOptions": ["6GB", "8GB", "12GB"],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.realme.com/ph/realme-c71",
+
+    "storageOptions": ["64GB", "128GB"],
+    "ramOptions": ["4GB", "6GB"],
     "availableVariants": [
-      { "color": "Black", "storage": "128GB", "ram": "6GB", "price": 5499 },
-      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 6499 },
-      { "color": "Green", "storage": "128GB", "ram": "6GB", "price": 5499 },
-      { "color": "Green", "storage": "256GB", "ram": "8GB", "price": 6499 },
-      { "color": "Purple", "storage": "256GB", "ram": "8GB", "price": 6499 },
-      { "color": "Purple", "storage": "128GB", "ram": "6GB", "price": 5499 }
+      { "color": "White Swan", "storage": "128GB", "ram": "6GB", "price": 6199 },
+      { "color": "Forest Owl", "storage": "128GB", "ram": "6GB", "price": 6199 }
+    ]
+  },
+
+  {
+    "id": "tecno-spark-30",
+    "name": "TECNO SPARK 30",
+    "images": [
+      "products/tecno-spark-30-1.png",
+      "products/tecno-spark-30-2.png",
+      "products/tecno-spark-30-3.png",
+      "products/tecno-spark-30-4.png"
+    ],
+    "colors": [
+      { "name": "Bumblebee Edition", "code": "#FFB800" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/spark-30-ip/",
+
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["4GB", "6GB", "8GB"],
+    "availableVariants": [
+      { "color": "Bumblebee Edition", "storage": "256GB", "ram": "8GB", "price": 6999 }
+    ]
+  },
+
+  {
+    "id": "itel-super-26-ultra",
+    "name": "Itel SUPER 26 Ultra",
+    "images": [
+      "products/itel-super-26-ultra-1.png",
+      "products/itel-super-26-ultra-2.png",
+      "products/itel-super-26-ultra-3.png",
+      "products/itel-super-26-ultra-4.png",
+      "products/itel-super-26-ultra-5.png",
+      "products/itel-super-26-ultra-6.png",
+      "products/itel-super-26-ultra-7.png"
+    ],
+    "colors": [
+      { "name": "Sapphire Black Blue", "code": "#0B1F3A" },
+      { "name": "Gilded White", "code": "#E8E4DC" },
+      { "name": "Black Pink Gold", "code": "#D4AF37" },
+      { "name": "Moonstone Silver", "code": "#C0C0C0" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.itel-life.com/products/phone/s-series/super-26-ultra",
+
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["4GB", "6GB", "8+8GB"],
+    "availableVariants": [
+      { "color": "Sapphire Black Blue", "storage": "256GB", "ram": "8+8GB", "price": 8999 },
+      { "color": "Gilded White", "storage": "256GB", "ram": "8+8GB", "price": 8999 },
+      { "color": "Black Pink Gold", "storage": "256GB", "ram": "8+8GB", "price": 8999 }
+    ]
+  },
+
+  {
+    "id": "itel-a90",
+    "name": "Itel A90",
+    "images": [
+      "products/itel-a90-1.png",
+      "products/itel-a90-2.png",
+      "products/itel-a90-3.png",
+      "products/itel-a90-4.png",
+      "products/itel-a90-5.png"
+    ],
+    "colors": [
+      { "name": "Starlit Black", "code": "#0B1F3A" },
+      { "name": "Space Titanium", "code": "#E8E4DC" },
+      { "name": "Aurora Blue", "code": "#D4AF37" },
+      { "name": "Cosmic Green", "code": "#0B2F24" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.itel-life.com/products/phone/a-series/a90",
+
+    "storageOptions": ["64GB", "128GB", "256GB", "512GB"],
+    "ramOptions": ["3+5GB", "6GB", "8GB"],
+    "availableVariants": [
+      { "color": "Starlit Black", "storage": "64GB", "ram": "3+5GB", "price": 3799 },
+      { "color": "Space Titanium", "storage": "64GB", "ram": "3+5GB", "price": 3799 },
+      { "color": "Aurora Blue", "storage": "64GB", "ram": "3+5GB", "price": 3799 }
     ]
   }
 

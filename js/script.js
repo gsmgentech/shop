@@ -66,7 +66,7 @@ function renderProduct(product) {
       </div>
     </div>
 
-    <button class="buy-button view-specs" data-specs='${product.specs}'>
+    <button class="buy-button view-specs" data-url="${product.specsPage}">
       View Specs
     </button>
   `;
@@ -122,34 +122,44 @@ function setupColorSwitch(card){
 }
 
 function setupVariants(card, available){
-  const priceEl = card.querySelector(".product-price");
+
   const priceText = card.querySelector(".price-text");
   const colorLabel = card.querySelector(".selected-color");
   const storageBtns = card.querySelectorAll(".storage-options .variant");
   const ramBtns = card.querySelectorAll(".ram-options .variant");
   const colorDots = card.querySelectorAll(".color-dot");
 
+  let selectedColor = null;
   let selectedStorage = null;
   let selectedRam = null;
-  let selectedColor = colorDots[0]?.dataset.name || null;
+
+  function getCheapest(list){
+    return list.reduce((min,v)=> v.price < min.price ? v : min);
+  }
 
   function refresh(){
+
     storageBtns.forEach(btn=>{
       const valid = available.some(v =>
-        (!selectedColor || v.color === selectedColor) &&
-        (!selectedRam || v.ram === selectedRam) &&
+        v.color === selectedColor &&
         v.storage === btn.dataset.value
       );
       btn.classList.toggle("disabled", !valid);
+      btn.classList.toggle("active", btn.dataset.value === selectedStorage);
     });
 
     ramBtns.forEach(btn=>{
       const valid = available.some(v =>
-        (!selectedColor || v.color === selectedColor) &&
-        (!selectedStorage || v.storage === selectedStorage) &&
+        v.color === selectedColor &&
+        v.storage === selectedStorage &&
         v.ram === btn.dataset.value
       );
       btn.classList.toggle("disabled", !valid);
+      btn.classList.toggle("active", btn.dataset.value === selectedRam);
+    });
+
+    colorDots.forEach(dot=>{
+      dot.classList.toggle("active", dot.dataset.name === selectedColor);
     });
 
     const match = available.find(v =>
@@ -163,23 +173,40 @@ function setupVariants(card, available){
     } else {
       priceText.textContent = "Select Variant";
     }
+
+    const activeDot = Array.from(colorDots).find(d => d.dataset.name === selectedColor);
+    if(activeDot){
+      colorLabel.textContent = selectedColor;
+      colorLabel.style.color = activeDot.style.background;
+    }
   }
+
+  const cheapestOverall = getCheapest(available);
+  selectedColor = cheapestOverall.color;
+  selectedStorage = cheapestOverall.storage;
+  selectedRam = cheapestOverall.ram;
 
   colorDots.forEach(dot=>{
     dot.onclick = ()=>{
-      colorDots.forEach(d=>d.classList.remove("active"));
-      dot.classList.add("active");
+      const variantsInColor = available.filter(v => v.color === dot.dataset.name);
+      if(variantsInColor.length === 0){
+        priceText.textContent = "Not available.";
+        return;
+      }
 
-      selectedColor = dot.dataset.name;
-      selectedStorage = null;
-      selectedRam = null;
+      const match = variantsInColor.find(v =>
+        v.storage === selectedStorage &&
+        v.ram === selectedRam
+      );
 
-      storageBtns.forEach(b=>b.classList.remove("active"));
-      ramBtns.forEach(b=>b.classList.remove("active"));
-
-      priceText.textContent = "Select Variant";
-      colorLabel.textContent = selectedColor;
-      colorLabel.style.color = dot.style.background;
+      if(match){
+        selectedColor = match.color;
+      } else {
+        const cheapest = getCheapest(variantsInColor);
+        selectedColor = cheapest.color;
+        selectedStorage = cheapest.storage;
+        selectedRam = cheapest.ram;
+      }
 
       refresh();
     }
@@ -189,13 +216,21 @@ function setupVariants(card, available){
     btn.onclick = ()=>{
       if(btn.classList.contains("disabled")) return;
 
-      if(selectedStorage === btn.dataset.value){
-        btn.classList.remove("active");
-        selectedStorage = null;
+      const variants = available.filter(v =>
+        v.color === selectedColor &&
+        v.storage === btn.dataset.value
+      );
+
+      if(variants.length === 0) return;
+
+      const match = variants.find(v => v.ram === selectedRam);
+
+      if(match){
+        selectedStorage = match.storage;
       } else {
-        storageBtns.forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        selectedStorage = btn.dataset.value;
+        const cheapest = getCheapest(variants);
+        selectedStorage = cheapest.storage;
+        selectedRam = cheapest.ram;
       }
 
       refresh();
@@ -206,13 +241,14 @@ function setupVariants(card, available){
     btn.onclick = ()=>{
       if(btn.classList.contains("disabled")) return;
 
-      if(selectedRam === btn.dataset.value){
-        btn.classList.remove("active");
-        selectedRam = null;
-      } else {
-        ramBtns.forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        selectedRam = btn.dataset.value;
+      const match = available.find(v =>
+        v.color === selectedColor &&
+        v.storage === selectedStorage &&
+        v.ram === btn.dataset.value
+      );
+
+      if(match){
+        selectedRam = match.ram;
       }
 
       refresh();
@@ -222,17 +258,11 @@ function setupVariants(card, available){
   refresh();
 }
 
-const modal = document.getElementById("specsModal");
-const specsText = document.getElementById("specsText");
-const closeModal = document.getElementById("closeModal");
-
 document.addEventListener("click", function(e){
   if(e.target.classList.contains("view-specs")){
-    specsText.textContent = e.target.dataset.specs;
-    modal.classList.add("active");
-  }
-
-  if(e.target === closeModal || e.target === modal){
-    modal.classList.remove("active");
+    const url = e.target.dataset.url;
+    if(url){
+      window.location.href = url;
+    }
   }
 });
