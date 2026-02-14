@@ -4,17 +4,33 @@ async function loadProducts() {
   try {
     const res = await fetch("./products.json");
     if (!res.ok) throw new Error("JSON not found");
-    const products = await res.json();
+    let products = await res.json();
+
+    products = products.sort((a, b) => {
+      const cheapestA = getCheapest(a.availableVariants).price;
+      const cheapestB = getCheapest(b.availableVariants).price;
+      return cheapestA - cheapestB;
+    });
+
     products.forEach(product => renderProduct(product));
+
   } catch (err) {
     console.error(err);
     container.innerHTML = "<p style='color:red'>Failed to load products.json</p>";
   }
 }
 
+function getCheapest(list){
+  return list.reduce((min,v)=> v.price < min.price ? v : min);
+}
+
 loadProducts();
 
 function renderProduct(product) {
+
+  const cheapestVariant = getCheapest(product.availableVariants);
+  const cheapestColorObj = product.colors.find(c=>c.name===cheapestVariant.color);
+
   const card = document.createElement("div");
   card.className = "product-card";
 
@@ -30,19 +46,18 @@ function renderProduct(product) {
     <div class="product-header">
       <div class="product-name">${product.name}</div>
       <div class="color-options">
-        ${product.colors.map((color,i)=>
-          `<span class="color-dot ${i===0?'active':''}" 
+        ${product.colors.map(color=>
+          `<span class="color-dot ${color.name===cheapestVariant.color?'active':''}" 
             style="background:${color.code}" 
-            data-name="${color.name}"
-            data-index="${i}"></span>`
+            data-name="${color.name}"></span>`
         ).join("")}
       </div>
     </div>
 
     <div class="product-price">
-      <span class="price-text">Select Variant</span>
-      <span class="selected-color" style="color:${product.colors[0].code}">
-        ${product.colors[0].name}
+      <span class="price-text">₱${cheapestVariant.price.toLocaleString()}</span>
+      <span class="selected-color" style="color:${cheapestColorObj.code}">
+        ${cheapestVariant.color}
       </span>
     </div>
 
@@ -52,7 +67,7 @@ function renderProduct(product) {
       <label>Storage</label>
       <div class="variant-options storage-options">
         ${product.storageOptions.map(s=>
-          `<span class="variant" data-value="${s}">${s}</span>`
+          `<span class="variant ${s===cheapestVariant.storage?'active':''}" data-value="${s}">${s}</span>`
         ).join("")}
       </div>
     </div>
@@ -61,7 +76,7 @@ function renderProduct(product) {
       <label>RAM</label>
       <div class="variant-options ram-options">
         ${product.ramOptions.map(r=>
-          `<span class="variant" data-value="${r}">${r}</span>`
+          `<span class="variant ${r===cheapestVariant.ram?'active':''}" data-value="${r}">${r}</span>`
         ).join("")}
       </div>
     </div>
@@ -74,8 +89,7 @@ function renderProduct(product) {
   container.appendChild(card);
 
   setupSlider(card);
-  setupColorSwitch(card);
-  setupVariants(card, product.availableVariants);
+  setupVariants(card, product.availableVariants, cheapestVariant);
 }
 
 function setupSlider(card){
@@ -105,23 +119,7 @@ function setupSlider(card){
   };
 }
 
-function setupColorSwitch(card){
-  const dots = card.querySelectorAll(".color-dot");
-  const images = card.querySelectorAll(".product-slider img");
-
-  dots.forEach(dot=>{
-    dot.onclick = ()=>{
-      dots.forEach(d=>d.classList.remove("active"));
-      dot.classList.add("active");
-
-      const i = dot.dataset.index;
-      images.forEach(img=>img.classList.remove("active"));
-      images[i].classList.add("active");
-    }
-  });
-}
-
-function setupVariants(card, available){
+function setupVariants(card, available, initial){
 
   const priceText = card.querySelector(".price-text");
   const colorLabel = card.querySelector(".selected-color");
@@ -129,21 +127,33 @@ function setupVariants(card, available){
   const ramBtns = card.querySelectorAll(".ram-options .variant");
   const colorDots = card.querySelectorAll(".color-dot");
 
-  let selectedColor = null;
-  let selectedStorage = null;
-  let selectedRam = null;
+  let selectedColor = initial.color;
+  let selectedStorage = initial.storage;
+  let selectedRam = initial.ram;
 
-  function getCheapest(list){
-    return list.reduce((min,v)=> v.price < min.price ? v : min);
+  function disableAll(){
+    storageBtns.forEach(btn=>{
+      btn.classList.add("disabled");
+      btn.classList.remove("active");
+    });
+    ramBtns.forEach(btn=>{
+      btn.classList.add("disabled");
+      btn.classList.remove("active");
+    });
   }
 
   function refresh(){
 
+    const variantsInColor = available.filter(v => v.color === selectedColor);
+
+    if(variantsInColor.length === 0){
+      priceText.textContent = "Not available.";
+      disableAll();
+      return;
+    }
+
     storageBtns.forEach(btn=>{
-      const valid = available.some(v =>
-        v.color === selectedColor &&
-        v.storage === btn.dataset.value
-      );
+      const valid = variantsInColor.some(v => v.storage === btn.dataset.value);
       btn.classList.toggle("disabled", !valid);
       btn.classList.toggle("active", btn.dataset.value === selectedStorage);
     });
@@ -158,10 +168,6 @@ function setupVariants(card, available){
       btn.classList.toggle("active", btn.dataset.value === selectedRam);
     });
 
-    colorDots.forEach(dot=>{
-      dot.classList.toggle("active", dot.dataset.name === selectedColor);
-    });
-
     const match = available.find(v =>
       v.color === selectedColor &&
       v.storage === selectedStorage &&
@@ -173,40 +179,30 @@ function setupVariants(card, available){
     } else {
       priceText.textContent = "Select Variant";
     }
-
-    const activeDot = Array.from(colorDots).find(d => d.dataset.name === selectedColor);
-    if(activeDot){
-      colorLabel.textContent = selectedColor;
-      colorLabel.style.color = activeDot.style.background;
-    }
   }
-
-  const cheapestOverall = getCheapest(available);
-  selectedColor = cheapestOverall.color;
-  selectedStorage = cheapestOverall.storage;
-  selectedRam = cheapestOverall.ram;
 
   colorDots.forEach(dot=>{
     dot.onclick = ()=>{
-      const variantsInColor = available.filter(v => v.color === dot.dataset.name);
+      selectedColor = dot.dataset.name;
+
+      colorDots.forEach(d=>d.classList.remove("active"));
+      dot.classList.add("active");
+
+      const variantsInColor = available.filter(v => v.color === selectedColor);
+
       if(variantsInColor.length === 0){
+        selectedStorage = null;
+        selectedRam = null;
+        disableAll();
         priceText.textContent = "Not available.";
-        return;
-      }
-
-      const match = variantsInColor.find(v =>
-        v.storage === selectedStorage &&
-        v.ram === selectedRam
-      );
-
-      if(match){
-        selectedColor = match.color;
       } else {
         const cheapest = getCheapest(variantsInColor);
-        selectedColor = cheapest.color;
         selectedStorage = cheapest.storage;
         selectedRam = cheapest.ram;
       }
+
+      colorLabel.textContent = selectedColor;
+      colorLabel.style.color = dot.style.background;
 
       refresh();
     }
@@ -216,21 +212,15 @@ function setupVariants(card, available){
     btn.onclick = ()=>{
       if(btn.classList.contains("disabled")) return;
 
+      selectedStorage = btn.dataset.value;
+
       const variants = available.filter(v =>
         v.color === selectedColor &&
-        v.storage === btn.dataset.value
+        v.storage === selectedStorage
       );
 
-      if(variants.length === 0) return;
-
-      const match = variants.find(v => v.ram === selectedRam);
-
-      if(match){
-        selectedStorage = match.storage;
-      } else {
-        const cheapest = getCheapest(variants);
-        selectedStorage = cheapest.storage;
-        selectedRam = cheapest.ram;
+      if(variants.length){
+        selectedRam = variants[0].ram;
       }
 
       refresh();
@@ -241,16 +231,7 @@ function setupVariants(card, available){
     btn.onclick = ()=>{
       if(btn.classList.contains("disabled")) return;
 
-      const match = available.find(v =>
-        v.color === selectedColor &&
-        v.storage === selectedStorage &&
-        v.ram === btn.dataset.value
-      );
-
-      if(match){
-        selectedRam = match.ram;
-      }
-
+      selectedRam = btn.dataset.value;
       refresh();
     }
   });

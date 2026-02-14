@@ -21,7 +21,8 @@
 
     "availableVariants": [
       { "color": "Blue", "storage": "128GB", "ram": "6GB", "price": 7499 },
-      { "color": "Silver", "storage": "256GB", "ram": "8GB", "price": 8499 }
+      { "color": "Silver", "storage": "256GB", "ram": "8GB", "price": 8499 },
+      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 8499 }
     ]
   },
 
@@ -77,10 +78,13 @@
     "availableVariants": [
       { "color": "Mint Green", "storage": "128GB", "ram": "6GB", "price": 5799},
       { "color": "Mint Green", "storage": "128GB", "ram": "4GB", "price": 5299 },
+      { "color": "Mint Green", "storage": "256GB", "ram": "8GB", "price": 6599 },
       { "color": "Midnight Black", "storage": "256GB", "ram": "8GB", "price": 6599 },
       { "color": "Midnight Black", "storage": "128GB", "ram": "4GB", "price": 5299 },
+      { "color": "Midnight Black", "storage": "128GB", "ram": "6GB", "price": 5799 },
       { "color": "Moonlight Blue", "storage": "256GB", "ram": "8GB", "price": 6599 },
       { "color": "Moonlight Blue", "storage": "128GB", "ram": "6GB", "price": 5799 },
+      { "color": "Moonlight Blue", "storage": "128GB", "ram": "4GB", "price": 5299 },
       { "color": "Twilight Orange", "storage": "256GB", "ram": "8GB", "price": 6599 },
       { "color": "Twilight Orange", "storage": "128GB", "ram": "6GB", "price": 5799 }
     ]
@@ -93,7 +97,8 @@
       "products/xiaomi-poco-c85-1.png",
       "products/xiaomi-poco-c85-2.png",
       "products/xiaomi-poco-c85-3.png",
-      "products/xiaomi-poco-c85-4.png"
+      "products/xiaomi-poco-c85-4.png",
+      "products/xiaomi-poco-c85-5.png"
     ],
     "colors": [
       { "name": "Black", "code": "#121212" },
@@ -122,7 +127,8 @@
       "products/realme-c71-1.png",
       "products/realme-c71-2.png",
       "products/realme-c71-3.png",
-      "products/realme-c71-4.png"
+      "products/realme-c71-4.png",
+      "products/realme-c71-5.png"
     ],
     "colors": [
       { "name": "White Swan", "code": "#E3E3E3" },
@@ -136,6 +142,111 @@
     "availableVariants": [
       { "color": "White Swan", "storage": "128GB", "ram": "6GB", "price": 6199 },
       { "color": "Forest Owl", "storage": "128GB", "ram": "6GB", "price": 6199 }
+    ]
+  },
+
+  {
+    "id": "oppo-a3x",
+    "name": "OPPO A3x",
+    "images": [
+      "products/oppo-a3x-1.png",
+      "products/oppo-a3x-2.png",
+      "products/oppo-a3x-3.png",
+      "products/oppo-a3x-4.png",
+      "products/oppo-a3x-5.png"
+    ],
+    "colors": [
+      { "name": "Nebula Red", "code": "#45303c" },
+      { "name": "Ocean Blue", "code": "#abcaea" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.oppo.com/ph/smartphones/series-a/a3x/",
+
+    "storageOptions": ["64GB", "128GB"],
+    "ramOptions": ["4GB", "6GB"],
+    "availableVariants": [
+      { "color": "Ocean Blue", "storage": "64GB", "ram": "4GB", "price": 4200 }
+    ]
+  },
+
+  {
+    "id": "tecno-spark-30c",
+    "name": "TECNO Spark 30C",
+    "images": [
+      "products/tecno-spark-30c-1.png",
+      "products/tecno-spark-30c-2.png",
+      "products/tecno-spark-30c-3.png",
+      "products/tecno-spark-30c-4.png"
+    ],
+    "colors": [
+      { "name": "Titanium Gold", "code": "#D4AF37" },
+      { "name": "Orbit Black", "code": "#333a45" },
+      { "name": "Orbit White", "code": "#ededed" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/spark-30c/",
+
+    "storageOptions": ["64GB", "128GB", "256GB"],
+    "ramOptions": ["4GB", "6GB", "8GB"],
+    "availableVariants": [
+      { "color": "Orbit Black", "storage": "256GB", "ram": "8GB", "price": 5699 },
+      { "color": "Orbit White", "storage": "256GB", "ram": "8GB", "price": 5699 }
+    ]
+  },
+
+  {
+    "id": "xiaomi-redmi-a5",
+    "name": "Xiaomi Redmi A5",
+    "images": [
+      "products/xiaomi-redmi-a5-1.png",
+      "products/xiaomi-redmi-a5-2.png",
+      "products/xiaomi-redmi-a5-3.png",
+      "products/xiaomi-redmi-a5-4.png",
+      "products/xiaomi-redmi-a5-5.png",
+      "products/xiaomi-redmi-a5-6.png",
+      "products/xiaomi-redmi-a5-7.png",
+      "products/xiaomi-redmi-a5-8.png"
+    ],
+    "colors": [
+      { "name": "Midnight Black", "code": "#2d2f31" },
+      { "name": "Lake Green", "code": "#e0efd8" },
+      { "name": "Ocean Blue", "code": "#d0eef9" },
+      { "name": "Sandy Gold", "code": "#d8d1c5" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.mi.com/ph/product/redmi-a5/specs/",
+
+    "storageOptions": ["64GB", "128GB", "256GB"],
+    "ramOptions": ["4+4GB", "6GB", "8GB"],
+    "availableVariants": [
+      { "color": "Midnight Black", "storage": "128GB", "ram": "4+4GB", "price": 4599 },
+      { "color": "Sandy Gold", "storage": "128GB", "ram": "4+4GB", "price": 4599 }
+    ]
+  },
+
+  {
+    "id": "poco-c71",
+    "name": "POCO C71",
+    "images": [
+      "products/poco-c71-1.png",
+      "products/poco-c71-2.png",
+      "products/poco-c71-3.png",
+      "products/poco-c71-4.png"
+    ],
+    "colors": [
+      { "name": "Blue", "code": "#191970" },
+      { "name": "Gold", "code": "#fae155" },
+      { "name": "Black", "code": "#000000" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.mi.com/ph/product/poco-c71/",
+
+    "storageOptions": ["64GB", "128GB"],
+    "ramOptions": ["3GB", "4GB"],
+    "availableVariants": [
+      { "color": "Blue", "storage": "64GB", "ram": "3GB", "price": 3699 },
+      { "color": "Black", "storage": "64GB", "ram": "3GB", "price": 3470 },
+      { "color": "Gold", "storage": "64GB", "ram": "3GB", "price": 3699 }
     ]
   },
 
@@ -210,7 +321,7 @@
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.itel-life.com/products/phone/a-series/a90",
 
-    "storageOptions": ["64GB", "128GB", "256GB", "512GB"],
+    "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["3+5GB", "6GB", "8GB"],
     "availableVariants": [
       { "color": "Starlit Black", "storage": "64GB", "ram": "3+5GB", "price": 3799 },
