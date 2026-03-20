@@ -328,6 +328,57 @@
       { "color": "Space Titanium", "storage": "64GB", "ram": "3+5GB", "price": 3799 },
       { "color": "Aurora Blue", "storage": "64GB", "ram": "3+5GB", "price": 3799 }
     ]
+  },
+
+  {
+    "id": "honor-400-5g",
+    "name": "HONOR 400 5G",
+    "images": [
+      "products/honor-400-1.png",
+      "products/honor-400-2.png",
+      "products/honor-400-3.png"
+    ],
+    "colors": [
+      { "name": "Desert Gold", "code": "#D4B06A" },
+      { "name": "Tidal Blue", "code": "#9FD3E8" },
+      { "name": "Midnight Black", "code": "#2B2B2B" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.honor.com/ph/phones/honor-400/",
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["8GB", "12GB", "12+12GB"],
+    "availableVariants": [
+      { "color": "Desert Gold", "storage": "512GB", "ram": "12+12GB", "price": 22500 },
+
+      { "color": "Tidal Blue", "storage": "512GB", "ram": "12+12GB", "price": 22500 }
+    ]
+  },
+
+  {
+    "id": "honor-x9d-5g",
+    "name": "HONOR X9d 5G",
+    "images": [
+      "products/honor-x9d-1.png",
+      "products/honor-x9d-2.png",
+      "products/honor-x9d-3.png",
+      "products/honor-x9d-4.png"
+    ],
+    "colors": [
+      { "name": "Reddish Brown", "code": "#6B2C2C" },
+      { "name": "Midnight Black", "code": "#1F1F1F" },
+      { "name": "Sunrise Gold", "code": "#E6C27A" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.hihonor.com/global/phones/honor-x9d/",
+
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["8GB", "12+12GB"],
+
+    "availableVariants": [
+      { "color": "Reddish Brown", "storage": "256GB", "ram": "12+12GB", "price": 19899 },
+      { "color": "Midnight Black", "storage": "256GB", "ram": "12+12GB", "price": 19899 },
+      { "color": "Sunrise Gold", "storage": "256GB", "ram": "12+12GB", "price": 19899 }
+    ]
   }
 
 ]

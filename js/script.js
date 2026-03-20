@@ -1,9 +1,13 @@
 const container = document.getElementById("productsContainer");
+const searchInput = document.getElementById("searchInput");
+
+let allProducts = [];
 
 async function loadProducts() {
   try {
     const res = await fetch("./products.json");
     if (!res.ok) throw new Error("JSON not found");
+
     let products = await res.json();
 
     products = products.sort((a, b) => {
@@ -12,32 +16,40 @@ async function loadProducts() {
       return cheapestA - cheapestB;
     });
 
-    products.forEach(product => renderProduct(product));
-
+    allProducts = products;
+    renderProducts(allProducts);
   } catch (err) {
     console.error(err);
     container.innerHTML = "<p style='color:red'>Failed to load products.json</p>";
   }
 }
 
-function getCheapest(list){
-  return list.reduce((min,v)=> v.price < min.price ? v : min);
+function getCheapest(list) {
+  return list.reduce((min, v) => v.price < min.price ? v : min);
 }
 
-loadProducts();
+function renderProducts(products) {
+  container.innerHTML = "";
+
+  if (!products.length) {
+    container.innerHTML = `<div class="no-results">No phone model found.</div>`;
+    return;
+  }
+
+  products.forEach(product => renderProduct(product));
+}
 
 function renderProduct(product) {
-
   const cheapestVariant = getCheapest(product.availableVariants);
-  const cheapestColorObj = product.colors.find(c=>c.name===cheapestVariant.color);
+  const cheapestColorObj = product.colors.find(c => c.name === cheapestVariant.color);
 
   const card = document.createElement("div");
   card.className = "product-card";
 
   card.innerHTML = `
     <div class="product-slider">
-      ${product.images.map((img,i)=>
-        `<img src="${img}" class="${i===0?'active':''}">`
+      ${product.images.map((img, i) =>
+        `<img src="${img}" class="${i === 0 ? "active" : ""}">`
       ).join("")}
       <button class="prev">&#10094;</button>
       <button class="next">&#10095;</button>
@@ -46,10 +58,8 @@ function renderProduct(product) {
     <div class="product-header">
       <div class="product-name">${product.name}</div>
       <div class="color-options">
-        ${product.colors.map(color=>
-          `<span class="color-dot ${color.name===cheapestVariant.color?'active':''}" 
-            style="background:${color.code}" 
-            data-name="${color.name}"></span>`
+        ${product.colors.map(color =>
+          `<span class="color-dot ${color.name === cheapestVariant.color ? "active" : ""}" style="background:${color.code}" data-name="${color.name}"></span>`
         ).join("")}
       </div>
     </div>
@@ -66,8 +76,8 @@ function renderProduct(product) {
     <div class="variant-group">
       <label>Storage</label>
       <div class="variant-options storage-options">
-        ${product.storageOptions.map(s=>
-          `<span class="variant ${s===cheapestVariant.storage?'active':''}" data-value="${s}">${s}</span>`
+        ${product.storageOptions.map(s =>
+          `<span class="variant ${s === cheapestVariant.storage ? "active" : ""}" data-value="${s}">${s}</span>`
         ).join("")}
       </div>
     </div>
@@ -75,8 +85,8 @@ function renderProduct(product) {
     <div class="variant-group">
       <label>RAM</label>
       <div class="variant-options ram-options">
-        ${product.ramOptions.map(r=>
-          `<span class="variant ${r===cheapestVariant.ram?'active':''}" data-value="${r}">${r}</span>`
+        ${product.ramOptions.map(r =>
+          `<span class="variant ${r === cheapestVariant.ram ? "active" : ""}" data-value="${r}">${r}</span>`
         ).join("")}
       </div>
     </div>
@@ -92,13 +102,13 @@ function renderProduct(product) {
   setupVariants(card, product.availableVariants, cheapestVariant);
 }
 
-function setupSlider(card){
+function setupSlider(card) {
   const slider = card.querySelector(".product-slider");
   const slides = slider.querySelectorAll("img");
   const prev = slider.querySelector(".prev");
   const next = slider.querySelector(".next");
 
-  if(slides.length <= 1){
+  if (slides.length <= 1) {
     prev.style.display = "none";
     next.style.display = "none";
     return;
@@ -108,19 +118,18 @@ function setupSlider(card){
 
   next.onclick = () => {
     slides[index].classList.remove("active");
-    index = (index+1)%slides.length;
+    index = (index + 1) % slides.length;
     slides[index].classList.add("active");
   };
 
   prev.onclick = () => {
     slides[index].classList.remove("active");
-    index = (index-1+slides.length)%slides.length;
+    index = (index - 1 + slides.length) % slides.length;
     slides[index].classList.add("active");
   };
 }
 
-function setupVariants(card, available, initial){
-
+function setupVariants(card, available, initial) {
   const priceText = card.querySelector(".price-text");
   const colorLabel = card.querySelector(".selected-color");
   const storageBtns = card.querySelectorAll(".storage-options .variant");
@@ -131,34 +140,34 @@ function setupVariants(card, available, initial){
   let selectedStorage = initial.storage;
   let selectedRam = initial.ram;
 
-  function disableAll(){
-    storageBtns.forEach(btn=>{
+  function disableAll() {
+    storageBtns.forEach(btn => {
       btn.classList.add("disabled");
       btn.classList.remove("active");
     });
-    ramBtns.forEach(btn=>{
+
+    ramBtns.forEach(btn => {
       btn.classList.add("disabled");
       btn.classList.remove("active");
     });
   }
 
-  function refresh(){
-
+  function refresh() {
     const variantsInColor = available.filter(v => v.color === selectedColor);
 
-    if(variantsInColor.length === 0){
+    if (variantsInColor.length === 0) {
       priceText.textContent = "Not available.";
       disableAll();
       return;
     }
 
-    storageBtns.forEach(btn=>{
+    storageBtns.forEach(btn => {
       const valid = variantsInColor.some(v => v.storage === btn.dataset.value);
       btn.classList.toggle("disabled", !valid);
       btn.classList.toggle("active", btn.dataset.value === selectedStorage);
     });
 
-    ramBtns.forEach(btn=>{
+    ramBtns.forEach(btn => {
       const valid = available.some(v =>
         v.color === selectedColor &&
         v.storage === selectedStorage &&
@@ -174,23 +183,23 @@ function setupVariants(card, available, initial){
       v.ram === selectedRam
     );
 
-    if(match){
+    if (match) {
       priceText.textContent = "₱" + match.price.toLocaleString();
     } else {
       priceText.textContent = "Select Variant";
     }
   }
 
-  colorDots.forEach(dot=>{
-    dot.onclick = ()=>{
+  colorDots.forEach(dot => {
+    dot.onclick = () => {
       selectedColor = dot.dataset.name;
 
-      colorDots.forEach(d=>d.classList.remove("active"));
+      colorDots.forEach(d => d.classList.remove("active"));
       dot.classList.add("active");
 
       const variantsInColor = available.filter(v => v.color === selectedColor);
 
-      if(variantsInColor.length === 0){
+      if (variantsInColor.length === 0) {
         selectedStorage = null;
         selectedRam = null;
         disableAll();
@@ -205,12 +214,12 @@ function setupVariants(card, available, initial){
       colorLabel.style.color = dot.style.background;
 
       refresh();
-    }
+    };
   });
 
-  storageBtns.forEach(btn=>{
-    btn.onclick = ()=>{
-      if(btn.classList.contains("disabled")) return;
+  storageBtns.forEach(btn => {
+    btn.onclick = () => {
+      if (btn.classList.contains("disabled")) return;
 
       selectedStorage = btn.dataset.value;
 
@@ -219,31 +228,45 @@ function setupVariants(card, available, initial){
         v.storage === selectedStorage
       );
 
-      if(variants.length){
+      if (variants.length) {
         selectedRam = variants[0].ram;
       }
 
       refresh();
-    }
+    };
   });
 
-  ramBtns.forEach(btn=>{
-    btn.onclick = ()=>{
-      if(btn.classList.contains("disabled")) return;
+  ramBtns.forEach(btn => {
+    btn.onclick = () => {
+      if (btn.classList.contains("disabled")) return;
 
       selectedRam = btn.dataset.value;
       refresh();
-    }
+    };
   });
 
   refresh();
 }
 
-document.addEventListener("click", function(e){
-  if(e.target.classList.contains("view-specs")){
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("view-specs")) {
     const url = e.target.dataset.url;
-    if(url){
+    if (url) {
       window.location.href = url;
     }
   }
 });
+
+if (searchInput) {
+  searchInput.addEventListener("input", function() {
+    const keyword = this.value.trim().toLowerCase();
+
+    const filtered = allProducts.filter(product =>
+      product.name.toLowerCase().includes(keyword)
+    );
+
+    renderProducts(filtered);
+  });
+}
+
+loadProducts();

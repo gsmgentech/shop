@@ -11,6 +11,11 @@ html, body {
   min-height: 100vh;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 .header{
   height:56px;
   background:#0b1220;
@@ -87,7 +92,7 @@ html, body {
 
 main {
   flex: 1;
-  padding: 40px 20px;
+  padding: 96px 20px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,6 +103,7 @@ h1 {
   color: #ee4d2d;
   margin-bottom: 10px;
   text-align: center;
+  margin-top: -30px;
 }
 
 h2 {
@@ -113,6 +119,7 @@ h2 {
   width: 100%;
   max-width: 1800px;
   margin: 0 auto;
+  min-height: 800px;
 }
 
 @media (min-width: 1600px) {
@@ -143,6 +150,28 @@ h2 {
   .products {
     grid-template-columns: 1fr;
   }
+}
+
+.search-wrap {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 25px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Rajdhani', sans-serif;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+.search-input:focus {
+  border-color: #ee4d2d;
 }
 
 .product-card {
@@ -312,6 +341,18 @@ h2 {
 
 .buy-button:hover {
   background: #d63f22;
+}
+
+.no-results {
+  width: 100%;
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  padding: 40px 20px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .specs-modal {
