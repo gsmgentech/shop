@@ -1,18 +1,44 @@
 const container = document.getElementById("productsContainer");
 const searchInput = document.getElementById("searchInput");
+const pageTitleEl = document.getElementById("pageTitle");
+const pageSubtitleEl = document.getElementById("pageSubtitle");
+const messengerBtn = document.getElementById("messengerBtn");
+
+const params = new URLSearchParams(window.location.search);
+const resellerKey = params.get("reseller");
 
 let allProducts = [];
+let resellerConfig = null;
 
 async function loadProducts() {
   try {
-    const res = await fetch("./products.json");
-    if (!res.ok) throw new Error("JSON not found");
+    const [productsRes, resellerRes] = await Promise.all([
+      fetch("./products.json"),
+      fetch("./resellers.json")
+    ]);
 
-    let products = await res.json();
+    if (!productsRes.ok) throw new Error("products.json not found");
+
+    let products = await productsRes.json();
+
+    let resellerMap = {};
+    if (resellerRes.ok) {
+      resellerMap = await resellerRes.json();
+    }
+
+    resellerConfig = resellerKey ? resellerMap[resellerKey] : null;
+
+    applyPageCustomization();
 
     products = products.sort((a, b) => {
-      const cheapestA = getCheapest(a.availableVariants).price;
-      const cheapestB = getCheapest(b.availableVariants).price;
+      const cheapestA = computeResellerPrice(
+        getCheapest(a.availableVariants).price,
+        resellerConfig
+      );
+      const cheapestB = computeResellerPrice(
+        getCheapest(b.availableVariants).price,
+        resellerConfig
+      );
       return cheapestA - cheapestB;
     });
 
@@ -20,12 +46,79 @@ async function loadProducts() {
     renderProducts(allProducts);
   } catch (err) {
     console.error(err);
-    container.innerHTML = "<p style='color:red'>Failed to load products.json</p>";
+    container.innerHTML = "<p style='color:red'>Failed to load product data.</p>";
   }
 }
 
+function applyPageCustomization() {
+  const defaultPageTitle = "GTServer Official Store";
+  const defaultPageSubtitle = "Affordable Smartphones with 0% Interest in 3 Months";
+  const defaultBrowserTitle = "Shop";
+  const defaultMessengerLink = "https://m.me/gentechserver";
+
+  if (resellerConfig) {
+    if (resellerConfig.pageTitle) {
+      document.title = resellerConfig.pageTitle;
+    } else {
+      document.title = defaultBrowserTitle;
+    }
+
+    if (pageTitleEl) {
+      pageTitleEl.textContent = resellerConfig.heroTitle || defaultPageTitle;
+    }
+
+    if (pageSubtitleEl) {
+      pageSubtitleEl.textContent = resellerConfig.heroSubtitle || defaultPageSubtitle;
+    }
+
+    if (messengerBtn) {
+      messengerBtn.href = resellerConfig.messengerLink || defaultMessengerLink;
+    }
+  } else {
+    document.title = defaultBrowserTitle;
+
+    if (pageTitleEl) {
+      pageTitleEl.textContent = defaultPageTitle;
+    }
+
+    if (pageSubtitleEl) {
+      pageSubtitleEl.textContent = defaultPageSubtitle;
+    }
+
+    if (messengerBtn) {
+      messengerBtn.href = defaultMessengerLink;
+    }
+  }
+}
+
+function computeResellerPrice(basePrice, commission) {
+  if (!commission) return basePrice;
+
+  if (commission.type === "percent") {
+    return Math.round(basePrice + (basePrice * commission.value / 100));
+  }
+
+  if (commission.type === "fixed") {
+    return Math.round(basePrice + commission.value);
+  }
+
+  return basePrice;
+}
+
+function getMonthlyPrice(totalPrice) {
+  return Math.round(totalPrice / 3);
+}
+
+function formatPriceBlock(totalPrice) {
+  const monthlyPrice = getMonthlyPrice(totalPrice);
+  return `
+    ₱${monthlyPrice.toLocaleString()} / month
+    <div class="total-price">₱${totalPrice.toLocaleString()} total • 3 months</div>
+  `;
+}
+
 function getCheapest(list) {
-  return list.reduce((min, v) => v.price < min.price ? v : min);
+  return list.reduce((min, v) => (v.price < min.price ? v : min));
 }
 
 function renderProducts(products) {
@@ -41,16 +134,25 @@ function renderProducts(products) {
 
 function renderProduct(product) {
   const cheapestVariant = getCheapest(product.availableVariants);
-  const cheapestColorObj = product.colors.find(c => c.name === cheapestVariant.color);
+  const cheapestColorObj = product.colors.find(
+    c => c.name === cheapestVariant.color
+  );
+
+  const displayPrice = computeResellerPrice(
+    cheapestVariant.price,
+    resellerConfig
+  );
 
   const card = document.createElement("div");
   card.className = "product-card";
 
   card.innerHTML = `
     <div class="product-slider">
-      ${product.images.map((img, i) =>
-        `<img src="${img}" class="${i === 0 ? "active" : ""}">`
-      ).join("")}
+      ${product.images
+        .map(
+          (img, i) => `<img src="${img}" class="${i === 0 ? "active" : ""}">`
+        )
+        .join("")}
       <button class="prev">&#10094;</button>
       <button class="next">&#10095;</button>
     </div>
@@ -58,14 +160,19 @@ function renderProduct(product) {
     <div class="product-header">
       <div class="product-name">${product.name}</div>
       <div class="color-options">
-        ${product.colors.map(color =>
-          `<span class="color-dot ${color.name === cheapestVariant.color ? "active" : ""}" style="background:${color.code}" data-name="${color.name}"></span>`
-        ).join("")}
+        ${product.colors
+          .map(
+            color =>
+              `<span class="color-dot ${
+                color.name === cheapestVariant.color ? "active" : ""
+              }" style="background:${color.code}" data-name="${color.name}"></span>`
+          )
+          .join("")}
       </div>
     </div>
 
     <div class="product-price">
-      <span class="price-text">₱${cheapestVariant.price.toLocaleString()}</span>
+      <span class="price-text">${formatPriceBlock(displayPrice)}</span>
       <span class="selected-color" style="color:${cheapestColorObj.code}">
         ${cheapestVariant.color}
       </span>
@@ -76,18 +183,28 @@ function renderProduct(product) {
     <div class="variant-group">
       <label>Storage</label>
       <div class="variant-options storage-options">
-        ${product.storageOptions.map(s =>
-          `<span class="variant ${s === cheapestVariant.storage ? "active" : ""}" data-value="${s}">${s}</span>`
-        ).join("")}
+        ${product.storageOptions
+          .map(
+            s =>
+              `<span class="variant ${
+                s === cheapestVariant.storage ? "active" : ""
+              }" data-value="${s}">${s}</span>`
+          )
+          .join("")}
       </div>
     </div>
 
     <div class="variant-group">
       <label>RAM</label>
       <div class="variant-options ram-options">
-        ${product.ramOptions.map(r =>
-          `<span class="variant ${r === cheapestVariant.ram ? "active" : ""}" data-value="${r}">${r}</span>`
-        ).join("")}
+        ${product.ramOptions
+          .map(
+            r =>
+              `<span class="variant ${
+                r === cheapestVariant.ram ? "active" : ""
+              }" data-value="${r}">${r}</span>`
+          )
+          .join("")}
       </div>
     </div>
 
@@ -168,23 +285,26 @@ function setupVariants(card, available, initial) {
     });
 
     ramBtns.forEach(btn => {
-      const valid = available.some(v =>
-        v.color === selectedColor &&
-        v.storage === selectedStorage &&
-        v.ram === btn.dataset.value
+      const valid = available.some(
+        v =>
+          v.color === selectedColor &&
+          v.storage === selectedStorage &&
+          v.ram === btn.dataset.value
       );
       btn.classList.toggle("disabled", !valid);
       btn.classList.toggle("active", btn.dataset.value === selectedRam);
     });
 
-    const match = available.find(v =>
-      v.color === selectedColor &&
-      v.storage === selectedStorage &&
-      v.ram === selectedRam
+    const match = available.find(
+      v =>
+        v.color === selectedColor &&
+        v.storage === selectedStorage &&
+        v.ram === selectedRam
     );
 
     if (match) {
-      priceText.textContent = "₱" + match.price.toLocaleString();
+      const finalPrice = computeResellerPrice(match.price, resellerConfig);
+      priceText.innerHTML = formatPriceBlock(finalPrice);
     } else {
       priceText.textContent = "Select Variant";
     }
@@ -192,20 +312,31 @@ function setupVariants(card, available, initial) {
 
   colorDots.forEach(dot => {
     dot.onclick = () => {
-      selectedColor = dot.dataset.name;
+      const newColor = dot.dataset.name;
 
       colorDots.forEach(d => d.classList.remove("active"));
       dot.classList.add("active");
 
-      const variantsInColor = available.filter(v => v.color === selectedColor);
+      const variantsInColor = available.filter(v => v.color === newColor);
 
       if (variantsInColor.length === 0) {
+        selectedColor = newColor;
         selectedStorage = null;
         selectedRam = null;
         disableAll();
         priceText.textContent = "Not available.";
+        return;
+      }
+
+      const stillValid = variantsInColor.find(
+        v => v.storage === selectedStorage && v.ram === selectedRam
+      );
+
+      if (stillValid) {
+        selectedColor = newColor;
       } else {
         const cheapest = getCheapest(variantsInColor);
+        selectedColor = newColor;
         selectedStorage = cheapest.storage;
         selectedRam = cheapest.ram;
       }
@@ -223,13 +354,21 @@ function setupVariants(card, available, initial) {
 
       selectedStorage = btn.dataset.value;
 
-      const variants = available.filter(v =>
-        v.color === selectedColor &&
-        v.storage === selectedStorage
+      const exactMatch = available.find(
+        v =>
+          v.color === selectedColor &&
+          v.storage === selectedStorage &&
+          v.ram === selectedRam
       );
 
-      if (variants.length) {
-        selectedRam = variants[0].ram;
+      if (!exactMatch) {
+        const variants = available.filter(
+          v => v.color === selectedColor && v.storage === selectedStorage
+        );
+
+        if (variants.length) {
+          selectedRam = variants[0].ram;
+        }
       }
 
       refresh();
@@ -241,6 +380,24 @@ function setupVariants(card, available, initial) {
       if (btn.classList.contains("disabled")) return;
 
       selectedRam = btn.dataset.value;
+
+      const exactMatch = available.find(
+        v =>
+          v.color === selectedColor &&
+          v.storage === selectedStorage &&
+          v.ram === selectedRam
+      );
+
+      if (!exactMatch) {
+        const variants = available.filter(
+          v => v.color === selectedColor && v.ram === selectedRam
+        );
+
+        if (variants.length) {
+          selectedStorage = variants[0].storage;
+        }
+      }
+
       refresh();
     };
   });
@@ -248,7 +405,7 @@ function setupVariants(card, available, initial) {
   refresh();
 }
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
   if (e.target.classList.contains("view-specs")) {
     const url = e.target.dataset.url;
     if (url) {
@@ -258,7 +415,7 @@ document.addEventListener("click", function(e) {
 });
 
 if (searchInput) {
-  searchInput.addEventListener("input", function() {
+  searchInput.addEventListener("input", function () {
     const keyword = this.value.trim().toLowerCase();
 
     const filtered = allProducts.filter(product =>
