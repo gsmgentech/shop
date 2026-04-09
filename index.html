@@ -28,12 +28,19 @@
 
 <body>
   <header class="header">
-    <img src="img/headergentechservernew1.png" alt="GTServer">
+    <img src="img/headergentechservernew1.png" alt="GTServer" id="headerLogo">
   </header>
 
   <main>
     <h1 id="pageTitle">GTServer Official Store</h1>
-    <h2 id="pageSubtitle">Affordable Smartphones with 0% Interest in 3 Months</h2>
+    <h2 id="pageSubtitle">Affordable Smartphones with Flexible Payment Options</h2>
+
+    <div class="payment-plan-wrap" id="paymentPlanWrap">
+      <button class="payment-plan-btn active" data-plan="cash">Cash</button>
+      <button class="payment-plan-btn" data-plan="3">3 Months</button>
+      <button class="payment-plan-btn" data-plan="6">6 Months</button>
+      <button class="payment-plan-btn" data-plan="12">12 Months</button>
+    </div>
 
     <div class="search-wrap">
       <input
@@ -53,7 +60,7 @@
         &copy; 2026 GTServer. All Rights Reserved.
       </p>
       <span class="footer-update">
-        Last updated: March-20-2026
+        Last updated: Apr 9, 2026
       </span>
     </div>
   </footer>
@@ -70,6 +77,40 @@
     </svg>
   </a>
 
-  <script src="js/script.js"></script>
+  <div class="request-modal" id="requestModal">
+    <div class="request-modal-content">
+      <div class="request-modal-head">
+        <h3>Request Unit</h3>
+        <button type="button" id="closeRequestModal" class="request-close-btn">&times;</button>
+      </div>
+
+      <form id="requestUnitForm" class="request-form" novalidate>
+        <input type="hidden" id="requestResellerKey" name="requestResellerKey">
+        <input type="hidden" id="requestPageUrl" name="requestPageUrl">
+
+        <div class="request-field">
+          <label for="requestBrand">Brand</label>
+          <input type="text" id="requestBrand" name="requestBrand">
+        </div>
+
+        <div class="request-field">
+          <label for="requestModel">Model</label>
+          <input type="text" id="requestModel" name="requestModel">
+        </div>
+
+        <div class="request-field">
+          <label for="requestNotes">Notes</label>
+          <textarea id="requestNotes" name="requestNotes" rows="5" placeholder="Preferred variant, payment plan, other details"></textarea>
+        </div>
+
+        <button type="submit" class="request-submit-btn" id="requestSubmitBtn">Submit Request</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="js/script.js?v=4"></script>
+  <script src="js/request.js?v=4"></script>
 </body>
 </html>

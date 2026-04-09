@@ -1,6 +1,8 @@
 [
   {
     "id": "poco-m7",
+    "badge": "sale",
+    "status": "sold_out",
     "name": "POCO M7",
     "images": [
       "products/poco-m7-1.png",
@@ -15,17 +17,75 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.po.co/global/product/poco-m7/specs/",
-
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
-
     "availableVariants": [
       { "color": "Blue", "storage": "128GB", "ram": "6GB", "price": 7499 },
       { "color": "Silver", "storage": "256GB", "ram": "8GB", "price": 8499 },
       { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 8499 }
     ]
   },
-
+  {
+    "id": "tecno-pova-7",
+    "name": "TECNO POVA 7",
+    "images": [
+      "products/tecno-pova-7-1.png",
+      "products/tecno-pova-7-2.png",
+      "products/tecno-pova-7-3.png",
+      "products/tecno-pova-7-4.png",
+      "products/tecno-pova-7-5.png",
+      "products/tecno-pova-7-6.png"
+    ],
+    "colors": [
+      { "name": "Geek Black", "code": "#45464a" },
+      { "name": "Hyper Titanium", "code": "#c1c5c6" },
+      { "name": "Magic Silver", "code": "#BFC5CE" },
+      { "name": "Cyan", "code": "#c6ede9" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/pova-7/",
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["8GB", "12GB"],
+    "availableVariants": [
+      { "color": "Geek Black", "storage": "256GB", "ram": "8GB", "price": 9000 },
+      { "color": "Hyper Titanium", "storage": "256GB", "ram": "8GB", "price": 9000 }
+    ]
+  },
+  {
+    "id": "infinix-smart-20",
+    "name": "Infinix Smart 20",
+    "images": [
+      "products/infinix-smart-20-1.png",
+      "products/infinix-smart-20-2.png",
+      "products/infinix-smart-20-3.png",
+      "products/infinix-smart-20-4.png",
+      "products/infinix-smart-20-5.png",
+      "products/infinix-smart-20-6.png"
+    ],
+    "colors": [
+      { "name": "Cloudine Blue", "code": "#39418a" },
+      { "name": "Polaris Titanuim", "code": "#dedcd6" },
+      { "name": "Shadow Black", "code": "#414548" },
+      { "name": "Sunlike Orange", "code": "#fd9a4c" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://ph.infinixmobility.com/SMART-20",
+    "storageOptions": ["64GB", "128GB", "256GB"],
+    "ramOptions": ["4GB", "8GB", "8GB"],
+    "availableVariants": [
+      { "color": "Cloudine Blue", "storage": "64GB", "ram": "4GB", "price": 5159 },
+      { "color": "Polaris Titanuim", "storage": "64GB", "ram": "4GB", "price": 5159 },
+      { "color": "Shadow Black", "storage": "64GB", "ram": "4GB", "price": 5159 },
+      { "color": "Sunlike Orange", "storage": "64GB", "ram": "4GB", "price": 5159 },
+      { "color": "Cloudine Blue", "storage": "128GB", "ram": "4GB", "price": 5700 },
+      { "color": "Polaris Titanuim", "storage": "128GB", "ram": "4GB", "price": 5700 },
+      { "color": "Shadow Black", "storage": "128GB", "ram": "4GB", "price": 5700 },
+      { "color": "Cloudine Blue", "storage": "256GB", "ram": "4GB", "price": 7899 },
+      { "color": "Polaris Titanuim", "storage": "256GB", "ram": "4GB", "price": 7899 },
+      { "color": "Shadow Black", "storage": "256GB", "ram": "4GB", "price": 7899 },
+      { "color": "Sunlike Orange", "storage": "256GB", "ram": "4GB", "price": 7899 }
+    ]
+  },
   {
     "id": "nubia-neo-3",
     "name": "Nubia Neo 3",
@@ -42,17 +102,14 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.pinoytechnoguide.com/smartphones/nubia-neo-3",
-
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
-
     "availableVariants": [
       { "color": "Shadow Black", "storage": "128GB", "ram": "8GB", "price": 6899 },
       { "color": "Cyber Silver", "storage": "128GB", "ram": "8GB", "price": 6899 },
       { "color": "Titanium Gold", "storage": "128GB", "ram": "8GB", "price": 6899 }
     ]
   },
-
   {
     "id": "redmi-15c",
     "name": "Redmi 15C",
@@ -63,7 +120,6 @@
       "products/redmi-15c-4.png",
       "products/redmi-15c-5.png"
     ],
-
     "colors": [
       { "name": "Mint Green", "code": "#afced1" },
       { "name": "Moonlight Blue", "code": "#1f307a" },
@@ -72,11 +128,10 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.mi.com/ph/product/redmi-15c/",
-
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["4GB", "6GB", "8GB"],
     "availableVariants": [
-      { "color": "Mint Green", "storage": "128GB", "ram": "6GB", "price": 5799},
+      { "color": "Mint Green", "storage": "128GB", "ram": "6GB", "price": 5799 },
       { "color": "Mint Green", "storage": "128GB", "ram": "4GB", "price": 5299 },
       { "color": "Mint Green", "storage": "256GB", "ram": "8GB", "price": 6599 },
       { "color": "Midnight Black", "storage": "256GB", "ram": "8GB", "price": 6599 },
@@ -89,7 +144,6 @@
       { "color": "Twilight Orange", "storage": "128GB", "ram": "6GB", "price": 5799 }
     ]
   },
-
   {
     "id": "xiaomi-poco-c85",
     "name": "Xiaomi Poco C85",
@@ -107,7 +161,6 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.mi.com/ph/product/poco-c85/",
-
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
     "availableVariants": [
@@ -119,7 +172,6 @@
       { "color": "Purple", "storage": "128GB", "ram": "6GB", "price": 5499 }
     ]
   },
-
   {
     "id": "realme-c71",
     "name": "Realme C71",
@@ -136,7 +188,6 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.realme.com/ph/realme-c71",
-
     "storageOptions": ["64GB", "128GB"],
     "ramOptions": ["4GB", "6GB"],
     "availableVariants": [
@@ -144,7 +195,6 @@
       { "color": "Forest Owl", "storage": "128GB", "ram": "6GB", "price": 6199 }
     ]
   },
-
   {
     "id": "oppo-a3x",
     "name": "OPPO A3x",
@@ -161,14 +211,12 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.oppo.com/ph/smartphones/series-a/a3x/",
-
     "storageOptions": ["64GB", "128GB"],
     "ramOptions": ["4GB", "6GB"],
     "availableVariants": [
       { "color": "Ocean Blue", "storage": "64GB", "ram": "4GB", "price": 4200 }
     ]
   },
-
   {
     "id": "tecno-spark-30c",
     "name": "TECNO Spark 30C",
@@ -185,7 +233,6 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/spark-30c/",
-
     "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["4GB", "6GB", "8GB"],
     "availableVariants": [
@@ -193,7 +240,6 @@
       { "color": "Orbit White", "storage": "256GB", "ram": "8GB", "price": 5699 }
     ]
   },
-
   {
     "id": "xiaomi-redmi-a5",
     "name": "Xiaomi Redmi A5",
@@ -215,7 +261,6 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.mi.com/ph/product/redmi-a5/specs/",
-
     "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["4+4GB", "6GB", "8GB"],
     "availableVariants": [
@@ -223,7 +268,6 @@
       { "color": "Sandy Gold", "storage": "128GB", "ram": "4+4GB", "price": 4599 }
     ]
   },
-
   {
     "id": "poco-c71",
     "name": "POCO C71",
@@ -240,7 +284,6 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.mi.com/ph/product/poco-c71/",
-
     "storageOptions": ["64GB", "128GB"],
     "ramOptions": ["3GB", "4GB"],
     "availableVariants": [
@@ -252,7 +295,6 @@
       { "color": "Black", "storage": "128GB", "ram": "4GB", "price": 4299 }
     ]
   },
-
   {
     "id": "tecno-spark-30",
     "name": "TECNO SPARK 30",
@@ -267,14 +309,12 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/spark-30-ip/",
-
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["4GB", "6GB", "8GB"],
     "availableVariants": [
       { "color": "Bumblebee Edition", "storage": "256GB", "ram": "8GB", "price": 6999 }
     ]
   },
-
   {
     "id": "itel-super-26-ultra",
     "name": "Itel SUPER 26 Ultra",
@@ -295,7 +335,6 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.itel-life.com/products/phone/s-series/super-26-ultra",
-
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["4GB", "6GB", "8+8GB"],
     "availableVariants": [
@@ -304,7 +343,6 @@
       { "color": "Black Pink Gold", "storage": "256GB", "ram": "8+8GB", "price": 8999 }
     ]
   },
-
   {
     "id": "itel-a90",
     "name": "Itel A90",
@@ -323,7 +361,6 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.itel-life.com/products/phone/a-series/a90",
-
     "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["3+5GB", "6GB", "8GB"],
     "availableVariants": [
@@ -332,7 +369,6 @@
       { "color": "Aurora Blue", "storage": "64GB", "ram": "3+5GB", "price": 3799 }
     ]
   },
-
   {
     "id": "honor-400-5g",
     "name": "HONOR 400 5G",
@@ -352,11 +388,9 @@
     "ramOptions": ["8GB", "12GB", "12+12GB"],
     "availableVariants": [
       { "color": "Desert Gold", "storage": "512GB", "ram": "12+12GB", "price": 22500 },
-
       { "color": "Tidal Blue", "storage": "512GB", "ram": "12+12GB", "price": 22500 }
     ]
   },
-
   {
     "id": "honor-x9d-5g",
     "name": "HONOR X9d 5G",
@@ -373,15 +407,12 @@
     ],
     "note": "Pay in 3 Months with 0% Interest",
     "specsPage": "https://www.hihonor.com/global/phones/honor-x9d/",
-
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8GB", "12+12GB"],
-
     "availableVariants": [
       { "color": "Reddish Brown", "storage": "256GB", "ram": "12+12GB", "price": 19899 },
       { "color": "Midnight Black", "storage": "256GB", "ram": "12+12GB", "price": 19899 },
       { "color": "Sunrise Gold", "storage": "256GB", "ram": "12+12GB", "price": 19899 }
     ]
   }
-
 ]

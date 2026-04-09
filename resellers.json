@@ -2,17 +2,20 @@
   "reseller1": {
     "name": "Reseller 1",
     "type": "percent",
-    "value": 5
+    "value": 5,
+    "headerImage": "img/headergentechservernew1.png"
   },
   "reseller2": {
     "name": "Reseller 2",
     "type": "percent",
-    "value": 10
+    "value": 10,
+    "headerImage": "img/headergentechservernew1.png"
   },
   "reseller3": {
     "name": "Reseller 3",
     "type": "fixed",
-    "value": 1000
+    "value": 1000,
+    "headerImage": "img/headergentechservernew1.png"
   },
   "dan": {
     "name": "Dan",
@@ -21,6 +24,7 @@
     "pageTitle": "Dan's Phone Shop",
     "heroTitle": "Dan's Phone Shop",
     "heroSubtitle": "Affordable Smartphones with Flexible Payment Options",
-    "messengerLink": "https://m.me/dan.samonte.54"
+    "messengerLink": "https://m.me/dan.samonte.54",
+    "headerImage": "img/headergentechservernew1.png"
   }
 }
