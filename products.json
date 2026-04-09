@@ -1,9 +1,9 @@
 [
   {
     "id": "poco-m7",
-    "badge": "sale",
-    "status": "sold_out",
     "name": "POCO M7",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/poco-m7-1.png",
       "products/poco-m7-2.png",
@@ -28,6 +28,8 @@
   {
     "id": "tecno-pova-7",
     "name": "TECNO POVA 7",
+    "badge": "new",
+    "status": "active",
     "images": [
       "products/tecno-pova-7-1.png",
       "products/tecno-pova-7-2.png",
@@ -54,6 +56,8 @@
   {
     "id": "infinix-smart-20",
     "name": "Infinix Smart 20",
+    "badge": "new",
+    "status": "active",
     "images": [
       "products/infinix-smart-20-1.png",
       "products/infinix-smart-20-2.png",
@@ -89,6 +93,8 @@
   {
     "id": "nubia-neo-3",
     "name": "Nubia Neo 3",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/nubia-neo-3-2.png",
       "products/nubia-neo-3-3.png",
@@ -113,6 +119,8 @@
   {
     "id": "redmi-15c",
     "name": "Redmi 15C",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/redmi-15c-1.png",
       "products/redmi-15c-2.png",
@@ -147,6 +155,8 @@
   {
     "id": "xiaomi-poco-c85",
     "name": "Xiaomi Poco C85",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/xiaomi-poco-c85-1.png",
       "products/xiaomi-poco-c85-2.png",
@@ -175,6 +185,8 @@
   {
     "id": "realme-c71",
     "name": "Realme C71",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/realme-c71-1.png",
       "products/realme-c71-2.png",
@@ -198,6 +210,8 @@
   {
     "id": "oppo-a3x",
     "name": "OPPO A3x",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/oppo-a3x-1.png",
       "products/oppo-a3x-2.png",
@@ -220,6 +234,8 @@
   {
     "id": "tecno-spark-30c",
     "name": "TECNO Spark 30C",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/tecno-spark-30c-1.png",
       "products/tecno-spark-30c-2.png",
@@ -243,6 +259,8 @@
   {
     "id": "xiaomi-redmi-a5",
     "name": "Xiaomi Redmi A5",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/xiaomi-redmi-a5-1.png",
       "products/xiaomi-redmi-a5-2.png",
@@ -271,6 +289,8 @@
   {
     "id": "poco-c71",
     "name": "POCO C71",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/poco-c71-1.png",
       "products/poco-c71-2.png",
@@ -298,6 +318,8 @@
   {
     "id": "tecno-spark-30",
     "name": "TECNO SPARK 30",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/tecno-spark-30-1.png",
       "products/tecno-spark-30-2.png",
@@ -318,6 +340,8 @@
   {
     "id": "itel-super-26-ultra",
     "name": "Itel SUPER 26 Ultra",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/itel-super-26-ultra-1.png",
       "products/itel-super-26-ultra-2.png",
@@ -346,6 +370,8 @@
   {
     "id": "itel-a90",
     "name": "Itel A90",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/itel-a90-1.png",
       "products/itel-a90-2.png",
@@ -372,6 +398,8 @@
   {
     "id": "honor-400-5g",
     "name": "HONOR 400 5G",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/honor-400-1.png",
       "products/honor-400-2.png",
@@ -394,6 +422,8 @@
   {
     "id": "honor-x9d-5g",
     "name": "HONOR X9d 5G",
+    "badge": "",
+    "status": "active",
     "images": [
       "products/honor-x9d-1.png",
       "products/honor-x9d-2.png",
