@@ -17,24 +17,135 @@ const REQUEST_COOLDOWN_KEY = "gt_request_cooldown_until";
 
 let cooldownTimer = null;
 
-function showToast(message, type = "error") {
+function removeToast(toast) {
+  if (!toast || toast.dataset.removing === "1") return;
+
+  toast.dataset.removing = "1";
+  toast.classList.remove("show");
+  toast.classList.add("hide");
+
+  clearTimeout(Number(toast.dataset.hideTimer || 0));
+
+  setTimeout(() => {
+    toast.remove();
+  }, 250);
+}
+
+function attachToastSwipe(toast) {
+  let startX = 0;
+  let currentX = 0;
+  let dragging = false;
+
+  const start = (x) => {
+    dragging = true;
+    startX = x;
+    currentX = x;
+    toast.classList.add("dragging");
+  };
+
+  const move = (x) => {
+    if (!dragging) return;
+    currentX = x;
+    const diff = currentX - startX;
+    toast.style.transform = `translateX(${diff}px)`;
+    toast.style.opacity = String(Math.max(0.35, 1 - (Math.abs(diff) / 220)));
+  };
+
+  const end = () => {
+    if (!dragging) return;
+    dragging = false;
+    toast.classList.remove("dragging");
+
+    const diff = currentX - startX;
+
+    if (Math.abs(diff) >= 90) {
+      removeToast(toast);
+      return;
+    }
+
+    toast.style.transform = "";
+    toast.style.opacity = "";
+  };
+
+  toast.addEventListener("touchstart", (e) => {
+    if (!e.touches || !e.touches[0]) return;
+    start(e.touches[0].clientX);
+  }, { passive: true });
+
+  toast.addEventListener("touchmove", (e) => {
+    if (!e.touches || !e.touches[0]) return;
+    move(e.touches[0].clientX);
+  }, { passive: true });
+
+  toast.addEventListener("touchend", end);
+
+  toast.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    start(e.clientX);
+  });
+
+  window.addEventListener("pointermove", (e) => {
+    move(e.clientX);
+  });
+
+  window.addEventListener("pointerup", end);
+
+  toast.addEventListener("click", () => {
+    removeToast(toast);
+  });
+}
+
+function showToast(message, type = "error", duration = 10000) {
   if (!toastWrap) return;
+
+  const safeDuration = Math.max(1000, Number(duration) || 10000);
 
   const toast = document.createElement("div");
   toast.className = `toast-message ${type}`;
-  toast.textContent = message;
+  toast.innerHTML = `
+    <div class="toast-message-body">
+      <span class="toast-message-text">${escapeHtml(message)}</span>
+      <button type="button" class="toast-close-btn" aria-label="Close message">&times;</button>
+    </div>
+    <div class="toast-progress"></div>
+  `;
+
   toastWrap.appendChild(toast);
+
+  const closeBtn = toast.querySelector(".toast-close-btn");
+  const progressEl = toast.querySelector(".toast-progress");
+
+  if (progressEl) {
+    progressEl.style.animationDuration = `${safeDuration}ms`;
+  }
+
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    removeToast(toast);
+  });
+
+  attachToastSwipe(toast);
 
   requestAnimationFrame(() => {
     toast.classList.add("show");
   });
 
-  setTimeout(() => {
-    toast.classList.remove("show");
-    setTimeout(() => {
-      toast.remove();
-    }, 250);
-  }, 2600);
+  const timer = setTimeout(() => {
+    removeToast(toast);
+  }, safeDuration);
+
+  toast.dataset.hideTimer = String(timer);
+}
+
+window.showToast = showToast;
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function openRequestModal(prefill = "") {
@@ -235,10 +346,10 @@ if (requestForm) {
       applyCooldownAfterSubmit();
       requestForm.reset();
       closeRequestModal();
-      showToast("Request sent successfully.", "success");
+      showToast("Request sent successfully.", "success", 10000);
     } catch (error) {
       console.error("Telegram submit error:", error);
-      showToast(error.message || "Failed to submit request.", "error");
+      showToast(error.message || "Failed to submit request.", "error", 10000);
       updateSubmitButtonState();
     } finally {
       if (!isCooldownActive()) {

@@ -26,34 +26,6 @@
     ]
   },
   {
-    "id": "tecno-pova-7",
-    "name": "TECNO POVA 7",
-    "badge": "new",
-    "status": "active",
-    "images": [
-      "products/tecno-pova-7-1.png",
-      "products/tecno-pova-7-2.png",
-      "products/tecno-pova-7-3.png",
-      "products/tecno-pova-7-4.png",
-      "products/tecno-pova-7-5.png",
-      "products/tecno-pova-7-6.png"
-    ],
-    "colors": [
-      { "name": "Geek Black", "code": "#45464a" },
-      { "name": "Hyper Titanium", "code": "#c1c5c6" },
-      { "name": "Magic Silver", "code": "#BFC5CE" },
-      { "name": "Cyan", "code": "#c6ede9" }
-    ],
-    "note": "Pay in 3 Months with 0% Interest",
-    "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/pova-7/",
-    "storageOptions": ["128GB", "256GB", "512GB"],
-    "ramOptions": ["8GB", "12GB"],
-    "availableVariants": [
-      { "color": "Geek Black", "storage": "256GB", "ram": "8GB", "price": 9000 },
-      { "color": "Hyper Titanium", "storage": "256GB", "ram": "8GB", "price": 9000 }
-    ]
-  },
-  {
     "id": "infinix-smart-20",
     "name": "Infinix Smart 20",
     "badge": "new",
@@ -290,7 +262,7 @@
     "id": "poco-c71",
     "name": "POCO C71",
     "badge": "",
-    "status": "active",
+    "status": "sold_out",
     "images": [
       "products/poco-c71-1.png",
       "products/poco-c71-2.png",
@@ -422,7 +394,7 @@
   {
     "id": "honor-x9d-5g",
     "name": "HONOR X9d 5G",
-    "badge": "",
+    "badge": "sale",
     "status": "active",
     "images": [
       "products/honor-x9d-1.png",

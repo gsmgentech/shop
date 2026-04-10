@@ -1,1 +1,204 @@
-[]
+[
+    {
+    "id": "infinix-note-edge-5g",
+    "name": "Infinix NOTE Edge 5G",
+    "badge": "new",
+    "status": "active",
+    "images": [
+      "products/infinix-note-edge-5g-1.png",
+      "products/infinix-note-edge-5g-2.png",
+      "products/infinix-note-edge-5g-3.png",
+      "products/infinix-note-edge-5g-4.png",
+      "products/infinix-note-edge-5g-5.png"
+    ],
+    "colors": [
+      { "name": "Stellar Blue", "code": "#394a97" },
+      { "name": "Shadow Black", "code": "#36383c" },
+      { "name": "Lunar Titanium", "code": "#d3cccc" },
+      { "name": "Silk Green", "code": "#596a59" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://ph.infinixmobility.com/NOTE-Edge",
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["8+8GB"],
+    "availableVariants": [
+      { "color": "Stellar Blue", "storage": "256GB", "ram": "8+8GB", "price": 15699 },
+      { "color": "Shadow Black", "storage": "256GB", "ram": "8+8GB", "price": 15699 },
+      { "color": "Lunar Titanium", "storage": "256GB", "ram": "8+8GB", "price": 15699 },
+      { "color": "Silk Green", "storage": "256GB", "ram": "8+8GB", "price": 15699 }
+    ]
+  },
+  {
+    "id": "infinix-gt-30-pro-5g",
+    "name": "Infinix GT 30 Pro 5G",
+    "badge": "new",
+    "status": "active",
+    "images": [
+      "products/infinix-gt-30-pro-5g-1.png",
+      "products/infinix-gt-30-pro-5g-2.png",
+      "products/infinix-gt-30-pro-5g-3.png"
+    ],
+    "colors": [
+      { "name": "Shadow Ash", "code": "#c9cad1" },
+      { "name": "Blade White", "code": "#efefef" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://ph.infinixmobility.com/gt-30-pro",
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["8+8GB", "12+12GB"],
+    "availableVariants": [
+      { "color": "Shadow Ash", "storage": "256GB", "ram": "12+12GB", "price": 16699 },
+      { "color": "Blade White", "storage": "256GB", "ram": "12+12GB", "price": 16699 }
+    ]
+  },
+  {
+    "id": "infinix-gt-30",
+    "name": "Infinix GT 30",
+    "badge": "new",
+    "status": "active",
+    "images": [
+      "products/infinix-gt-30-1.png",
+      "products/infinix-gt-30-2.png",
+      "products/infinix-gt-30-3.png",
+      "products/infinix-gt-30-4.png",
+      "products/infinix-gt-30-5.png"
+    ],
+    "colors": [
+      { "name": "Cyber Blue", "code": "#3c5f9f" },
+      { "name": "Pulse Green", "code": "#436051" },
+      { "name": "Shadow Ash", "code": "#c9cad1" },
+      { "name": "Blade White", "code": "#efefef" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://ph.infinixmobility.com/GT-30",
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["8+8GB"],
+    "availableVariants": [
+      { "color": "Cyber Blue", "storage": "256GB", "ram": "8+8GB", "price": 12599 },
+      { "color": "Pulse Green", "storage": "256GB", "ram": "8+8GB", "price": 12599 },
+      { "color": "Shadow Ash", "storage": "256GB", "ram": "8+8GB", "price": 12599 },
+      { "color": "Blade White", "storage": "256GB", "ram": "8+8GB", "price": 12599 }
+    ]
+  },
+  {
+    "id": "infinix-hot-60-pro-plus",
+    "name": "Infinix HOT 60 Pro+",
+    "badge": "new",
+    "status": "active",
+    "images": [
+      "products/infinix-hot-60-pro-plus-1.png",
+      "products/infinix-hot-60-pro-plus-2.png",
+      "products/infinix-hot-60-pro-plus-3.png",
+      "products/infinix-hot-60-pro-plus-4.png",
+      "products/infinix-hot-60-pro-plus-5.png",
+      "products/infinix-hot-60-pro-plus-6.png",
+      "products/infinix-hot-60-pro-plus-7.png"
+    ],
+    "colors": [
+      { "name": "Sleek Black", "code": "#4c4c4e" },
+      { "name": "Titanium Silver", "code": "#c0c4c7" },
+      { "name": "Misty Violet", "code": "#8776d2" },
+      { "name": "Coral Tides", "code": "#f5c0c3" },
+      { "name": "Sonic Yellow", "code": "#e9d148" },
+      { "name": "Moco Cyber Green", "code": "#098e7f" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://ph.infinixmobility.com/hot-60-pro%2B",
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["8+8GB"],
+    "availableVariants": [
+      { "color": "Sleek Black", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
+      { "color": "Titanium Silver", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
+      { "color": "Coral Tides", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
+      { "color": "Sonic Yellow", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
+      { "color": "Moco Cyber Green", "storage": "256GB", "ram": "8+8GB", "price": 11699 }
+    ]
+  },
+  {
+    "id": "infinix-hot-60-pro",
+    "name": "Infinix HOT 60 Pro",
+    "badge": "new",
+    "status": "active",
+    "images": [
+      "products/infinix-hot-60-pro-1.png",
+      "products/infinix-hot-60-pro-2.png",
+      "products/infinix-hot-60-pro-3.png",
+      "products/infinix-hot-60-pro-4.png",
+      "products/infinix-hot-60-pro-5.png",
+      "products/infinix-hot-60-pro-6.png",
+      "products/infinix-hot-60-pro-7.png",
+      "products/infinix-hot-60-pro-8.png"
+    ],
+    "colors": [
+      { "name": "Sleek Black", "code": "#4c4c4e" },
+      { "name": "Titanium Silver", "code": "#c0c4c7" },
+      { "name": "Coral Tides", "code": "#f5c0c3" },
+      { "name": "Sapphire Blue", "code": "#63abe9" },
+      { "name": "Jungle Breath", "code": "#2db67a" },
+      { "name": "Orange Rose Valley", "code": "#ff862e" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://ph.infinixmobility.com/HOT-60-Pro",
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["8+8GB"],
+    "availableVariants": [
+      { "color": "Sleek Black", "storage": "256GB", "ram": "8+8GB", "price": 9499 },
+      { "color": "Titanium Silver", "storage": "256GB", "ram": "8+8GB", "price": 9499 },
+      { "color": "Coral Tides", "storage": "256GB", "ram": "8+8GB", "price": 9499 },
+      { "color": "Sapphire Blue", "storage": "256GB", "ram": "8+8GB", "price": 9499 }
+    ]
+  },
+  {
+    "id": "tecno-pova-7-ultra-5g",
+    "name": "TECNO Pova 7 Ultra 5G",
+    "badge": "new",
+    "status": "active",
+    "images": [
+      "products/tecno-pova-7-ultra-5g-1.png",
+      "products/tecno-pova-7-ultra-5g-2.png",
+      "products/tecno-pova-7-ultra-5g-3.png",
+      "products/tecno-pova-7-ultra-5g-4.png",
+      "products/tecno-pova-7-ultra-5g-5.png"
+    ],
+    "colors": [
+      { "name": "Geek Black", "code": "#50555f" },
+      { "name": "Geek White", "code": "#eef0f1" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/pova-7-ultra-5g/",
+    "storageOptions": ["256GB", "512GB"],
+    "ramOptions": ["12GB", "12+12GB"],
+    "availableVariants": [
+      { "color": "Geek Black", "storage": "256GB", "ram": "12+12GB", "price": 17000 },
+      { "color": "Geek White", "storage": "256GB", "ram": "12+12GB", "price": 17000 }
+    ]
+  },
+  {
+    "id": "tecno-pova-7",
+    "name": "TECNO POVA 7",
+    "badge": "new",
+    "status": "active",
+    "images": [
+      "products/tecno-pova-7-1.png",
+      "products/tecno-pova-7-2.png",
+      "products/tecno-pova-7-3.png",
+      "products/tecno-pova-7-4.png",
+      "products/tecno-pova-7-5.png",
+      "products/tecno-pova-7-6.png"
+    ],
+    "colors": [
+      { "name": "Geek Black", "code": "#45464a" },
+      { "name": "Hyper Titanium", "code": "#c1c5c6" },
+      { "name": "Magic Silver", "code": "#BFC5CE" },
+      { "name": "Cyan", "code": "#c6ede9" }
+    ],
+    "note": "Pay in 3 Months with 0% Interest",
+    "specsPage": "https://www.tecno-mobile.com/ph/phones/product-detail/product/pova-7/",
+    "storageOptions": ["128GB", "256GB", "512GB"],
+    "ramOptions": ["8GB", "12GB"],
+    "availableVariants": [
+      { "color": "Geek Black", "storage": "256GB", "ram": "8GB", "price": 9000 },
+      { "color": "Hyper Titanium", "storage": "256GB", "ram": "8GB", "price": 9000 }
+    ]
+  }
+]

@@ -5,6 +5,7 @@ const pageSubtitleEl = document.getElementById("pageSubtitle");
 const messengerBtn = document.getElementById("messengerBtn");
 const headerLogo = document.getElementById("headerLogo");
 const paymentPlanWrap = document.getElementById("paymentPlanWrap");
+const announcementBar = document.getElementById("announcementBar");
 
 const params = new URLSearchParams(window.location.search);
 const resellerKey = params.get("reseller");
@@ -14,27 +15,37 @@ let requestedProducts = [];
 let allProducts = [];
 let resellerConfig = null;
 let selectedPaymentPlan = "cash";
+let announcements = [];
 
 window.APP_STATE = {
   resellerKey: resellerKey || "",
-  selectedPaymentPlan: selectedPaymentPlan
+  selectedPaymentPlan,
+  showToast: (...args) => {
+    if (typeof window.showToast === "function") {
+      window.showToast(...args);
+    }
+  }
 };
 
 async function loadProducts() {
   try {
-    const [productsRes, resellerRes, requestedRes] = await Promise.all([
+    const [productsRes, resellerRes, requestedRes, announcementsRes] = await Promise.all([
       fetch("./products.json"),
       fetch("./resellers.json"),
-      fetch("./requested-products.json").catch(() => null)
+      fetch("./requested-products.json").catch(() => null),
+      fetch("./announcements.json").catch(() => null)
     ]);
 
-    if (!productsRes.ok) throw new Error("products.json not found");
+    if (!productsRes.ok) {
+      throw new Error("products.json not found");
+    }
 
     const products = await productsRes.json();
     let resellerMap = {};
     let requested = [];
+    let loadedAnnouncements = [];
 
-    if (resellerRes.ok) {
+    if (resellerRes && resellerRes.ok) {
       resellerMap = await resellerRes.json();
     }
 
@@ -42,15 +53,28 @@ async function loadProducts() {
       requested = await requestedRes.json();
     }
 
+    if (announcementsRes && announcementsRes.ok) {
+      loadedAnnouncements = await announcementsRes.json();
+    }
+
     resellerConfig = resellerKey ? resellerMap[resellerKey] : null;
 
-    officialProducts = Array.isArray(products) ? products.map(p => ({ ...p, isRequested: false })) : [];
-    requestedProducts = Array.isArray(requested) ? requested.map(p => ({ ...p, isRequested: true })) : [];
+    officialProducts = Array.isArray(products)
+      ? products.map((p) => ({ ...p, isRequested: false }))
+      : [];
+
+    requestedProducts = Array.isArray(requested)
+      ? requested.map((p) => ({ ...p, isRequested: true }))
+      : [];
+
+    announcements = Array.isArray(loadedAnnouncements) ? loadedAnnouncements : [];
 
     applyPageCustomization();
+    renderAnnouncementBar();
     setupPaymentPlanButtons();
     rebuildProductList();
     filterAndRenderProducts();
+    triggerAnnouncementToasts();
   } catch (err) {
     console.error(err);
     container.innerHTML = "<p style='color:red'>Failed to load product data.</p>";
@@ -67,69 +91,96 @@ function applyPageCustomization() {
   if (resellerConfig) {
     document.title = resellerConfig.pageTitle || defaultBrowserTitle;
 
-    if (pageTitleEl) {
-      pageTitleEl.textContent = resellerConfig.heroTitle || defaultPageTitle;
-    }
-
-    if (pageSubtitleEl) {
-      pageSubtitleEl.textContent = resellerConfig.heroSubtitle || defaultPageSubtitle;
-    }
-
-    if (messengerBtn) {
-      messengerBtn.href = resellerConfig.messengerLink || defaultMessengerLink;
-    }
-
-    if (headerLogo) {
-      headerLogo.src = resellerConfig.headerImage || defaultHeaderImage;
-    }
+    if (pageTitleEl) pageTitleEl.textContent = resellerConfig.heroTitle || defaultPageTitle;
+    if (pageSubtitleEl) pageSubtitleEl.textContent = resellerConfig.heroSubtitle || defaultPageSubtitle;
+    if (messengerBtn) messengerBtn.href = resellerConfig.messengerLink || defaultMessengerLink;
+    if (headerLogo) headerLogo.src = resellerConfig.headerImage || defaultHeaderImage;
   } else {
     document.title = defaultBrowserTitle;
 
-    if (pageTitleEl) {
-      pageTitleEl.textContent = defaultPageTitle;
-    }
-
-    if (pageSubtitleEl) {
-      pageSubtitleEl.textContent = defaultPageSubtitle;
-    }
-
-    if (messengerBtn) {
-      messengerBtn.href = defaultMessengerLink;
-    }
-
-    if (headerLogo) {
-      headerLogo.src = defaultHeaderImage;
-    }
+    if (pageTitleEl) pageTitleEl.textContent = defaultPageTitle;
+    if (pageSubtitleEl) pageSubtitleEl.textContent = defaultPageSubtitle;
+    if (messengerBtn) messengerBtn.href = defaultMessengerLink;
+    if (headerLogo) headerLogo.src = defaultHeaderImage;
   }
 }
 
 function setupPaymentPlanButtons() {
   if (!paymentPlanWrap) return;
 
-  paymentPlanWrap.querySelectorAll(".payment-plan-btn").forEach(btn => {
+  paymentPlanWrap.querySelectorAll(".payment-plan-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-      selectedPaymentPlan = btn.dataset.plan;
+      selectedPaymentPlan = btn.dataset.plan || "cash";
       window.APP_STATE.selectedPaymentPlan = selectedPaymentPlan;
 
-      paymentPlanWrap.querySelectorAll(".payment-plan-btn").forEach(item => {
+      paymentPlanWrap.querySelectorAll(".payment-plan-btn").forEach((item) => {
         item.classList.remove("active");
       });
 
       btn.classList.add("active");
+
       rebuildProductList();
       filterAndRenderProducts();
     });
   });
 }
 
-function getPlanMeta(plan) {
+function getCashPriceRuleText(priceAfterMarkup) {
+  if (priceAfterMarkup <= 5000) {
+    return "Cash price • 10% discount";
+  }
+
+  if (priceAfterMarkup >= 6000 && priceAfterMarkup <= 9000) {
+    return "Cash price • 5% discount";
+  }
+
+  if (priceAfterMarkup >= 10000) {
+    return "Cash price • ₱1,000 off";
+  }
+
+  return "Cash price";
+}
+
+function getCashRuleBreakdown(priceAfterMarkup) {
+  const rounded = Math.round(Number(priceAfterMarkup) || 0);
+
+  if (rounded <= 5000) {
+    const finalPrice = Math.round(rounded * 0.9);
+    return {
+      label: "Cash promo",
+      text: `Original ${formatCurrency(rounded)} • 10% off • Final ${formatCurrency(finalPrice)}`
+    };
+  }
+
+  if (rounded >= 6000 && rounded <= 9000) {
+    const finalPrice = Math.round(rounded * 0.95);
+    return {
+      label: "Cash promo",
+      text: `Original ${formatCurrency(rounded)} • 5% off • Final ${formatCurrency(finalPrice)}`
+    };
+  }
+
+  if (rounded >= 10000) {
+    const finalPrice = Math.max(0, Math.round(rounded - 1000));
+    return {
+      label: "Cash promo",
+      text: `Original ${formatCurrency(rounded)} • Less ₱1,000 • Final ${formatCurrency(finalPrice)}`
+    };
+  }
+
+  return {
+    label: "Cash promo",
+    text: `Original ${formatCurrency(rounded)} • No cash discount`
+  };
+}
+
+function getPlanMeta(plan, priceAfterMarkup = 0) {
   if (plan === "cash") {
     return {
       key: "cash",
       label: "Cash Price",
       months: 0,
-      multiplier: 0.9,
-      note: "Cash price with 10% discount"
+      note: getCashPriceRuleText(priceAfterMarkup)
     };
   }
 
@@ -138,8 +189,7 @@ function getPlanMeta(plan) {
       key: "6",
       label: "6 Months",
       months: 6,
-      multiplier: 1.1,
-      note: "Pay in 6 Months with 10% markup"
+      note: "Pay in 6 Months"
     };
   }
 
@@ -148,8 +198,7 @@ function getPlanMeta(plan) {
       key: "12",
       label: "12 Months",
       months: 12,
-      multiplier: 1.2,
-      note: "Pay in 12 Months with 20% markup"
+      note: "Pay in 12 Months"
     };
   }
 
@@ -157,32 +206,64 @@ function getPlanMeta(plan) {
     key: "3",
     label: "3 Months",
     months: 3,
-    multiplier: 1,
     note: "Pay in 3 Months with 0% Interest"
   };
 }
 
 function applyResellerMarkup(basePrice) {
-  if (!resellerConfig) return Math.round(basePrice);
+  const value = Number(basePrice) || 0;
+
+  if (!resellerConfig) return Math.round(value);
 
   if (resellerConfig.type === "percent") {
-    return Math.round(basePrice + (basePrice * resellerConfig.value / 100));
+    return Math.round(value + (value * Number(resellerConfig.value || 0) / 100));
   }
 
   if (resellerConfig.type === "fixed") {
-    return Math.round(basePrice + resellerConfig.value);
+    return Math.round(value + Number(resellerConfig.value || 0));
   }
 
-  return Math.round(basePrice);
+  return Math.round(value);
+}
+
+function applyCashRule(priceAfterMarkup) {
+  const value = Math.round(Number(priceAfterMarkup) || 0);
+
+  if (value <= 5000) {
+    return Math.round(value * 0.9);
+  }
+
+  if (value >= 6000 && value <= 9000) {
+    return Math.round(value * 0.95);
+  }
+
+  if (value >= 10000) {
+    return Math.max(0, Math.round(value - 1000));
+  }
+
+  return value;
 }
 
 function applyPaymentPlan(priceAfterMarkup, plan) {
-  const meta = getPlanMeta(plan);
-  return Math.round(priceAfterMarkup * meta.multiplier);
+  const value = Math.round(Number(priceAfterMarkup) || 0);
+
+  if (plan === "cash") {
+    return applyCashRule(value);
+  }
+
+  if (plan === "6") {
+    return Math.round(value * 1.1);
+  }
+
+  if (plan === "12") {
+    return Math.round(value * 1.2);
+  }
+
+  return value;
 }
 
 function formatCurrency(value) {
-  return `₱${Math.round(value).toLocaleString()}`;
+  return `₱${Math.round(Number(value) || 0).toLocaleString()}`;
 }
 
 function resolveVariantStatus(product, variant) {
@@ -221,24 +302,32 @@ function computeDisplayedPriceData(variant) {
   const finalCurrent = applyPaymentPlan(resellerCurrent, selectedPaymentPlan);
   const finalOriginal = applyPaymentPlan(resellerOriginal, selectedPaymentPlan);
 
-  const planMeta = getPlanMeta(selectedPaymentPlan);
+  const planMeta = getPlanMeta(selectedPaymentPlan, resellerCurrent);
 
   return {
     planMeta,
     total: finalCurrent,
     originalTotal: finalOriginal,
     monthly: planMeta.months ? Math.round(finalCurrent / planMeta.months) : finalCurrent,
-    hasSale: isVariantOnSale(variant)
+    hasSale: isVariantOnSale(variant),
+    resellerCurrent,
+    resellerOriginal
   };
 }
 
 function getActiveVariants(product) {
-  return (product.availableVariants || []).filter(variant => resolveVariantStatus(product, variant) === "active");
+  return (product.availableVariants || []).filter(
+    (variant) => resolveVariantStatus(product, variant) === "active"
+  );
 }
 
 function getCheapestVariant(variants) {
+  if (!variants.length) return null;
+
   return variants.reduce((min, variant) => {
-    return getVariantCurrentBasePrice(variant) < getVariantCurrentBasePrice(min) ? variant : min;
+    return getVariantCurrentBasePrice(variant) < getVariantCurrentBasePrice(min)
+      ? variant
+      : min;
   }, variants[0]);
 }
 
@@ -263,7 +352,7 @@ function getInitialVariant(product) {
 }
 
 function getColorCode(product, colorName) {
-  const found = (product.colors || []).find(color => color.name === colorName);
+  const found = (product.colors || []).find((color) => color.name === colorName);
   return found ? found.code : "#666";
 }
 
@@ -303,18 +392,21 @@ function getSortPrice(product) {
 }
 
 function rebuildProductList() {
-  const sortedOfficial = [...officialProducts].sort((a, b) => getSortPrice(a) - getSortPrice(b));
-  const sortedRequested = [...requestedProducts].sort((a, b) => getSortPrice(a) - getSortPrice(b));
-  allProducts = [...sortedOfficial, ...sortedRequested];
+  allProducts = [...officialProducts, ...requestedProducts].sort((a, b) => {
+    const priceDiff = getSortPrice(a) - getSortPrice(b);
+    if (priceDiff !== 0) return priceDiff;
+    return (a.name || "").localeCompare(b.name || "");
+  });
 }
 
 function filterAndRenderProducts() {
   const keyword = (searchInput?.value || "").trim().toLowerCase();
 
-  const filtered = allProducts.filter(product => {
+  const filtered = allProducts.filter((product) => {
     const haystack = [
       product.name || "",
-      ...(product.colors || []).map(item => item.name || "")
+      ...(product.colors || []).map((item) => item.name || ""),
+      ...(product.availableVariants || []).map((v) => `${v.storage || ""} ${v.ram || ""}`)
     ].join(" ").toLowerCase();
 
     return haystack.includes(keyword);
@@ -332,7 +424,7 @@ function renderProducts(products, keyword = "") {
     return;
   }
 
-  products.forEach(product => {
+  products.forEach((product) => {
     container.appendChild(renderProduct(product));
   });
 
@@ -368,7 +460,9 @@ function createRequestCard(keyword = "") {
 function renderProduct(product) {
   const initialVariant = getInitialVariant(product);
   const ribbon = getProductRibbon(product);
-  const productImages = Array.isArray(product.images) && product.images.length ? product.images : ["img/logo.png"];
+  const productImages = Array.isArray(product.images) && product.images.length
+    ? product.images
+    : ["img/logo.png"];
 
   const card = document.createElement("div");
   card.className = `product-card${product.isRequested ? " requested-product-card" : ""}`;
@@ -378,7 +472,9 @@ function renderProduct(product) {
     ${product.isRequested ? `<div class="requested-unit-tag">Requested Unit</div>` : ""}
 
     <div class="product-slider">
-      ${productImages.map((img, index) => `<img src="${img}" class="${index === 0 ? "active" : ""}" alt="${escapeHtml(product.name)}">`).join("")}
+      ${productImages.map((img, index) => `
+        <img src="${img}" class="${index === 0 ? "active" : ""}" alt="${escapeHtml(product.name)}">
+      `).join("")}
       <button class="prev" type="button">&#10094;</button>
       <button class="next" type="button">&#10095;</button>
     </div>
@@ -386,11 +482,19 @@ function renderProduct(product) {
     <div class="product-header">
       <div class="product-name">${escapeHtml(product.name || "Unnamed Product")}</div>
       <div class="color-options">
-        ${(product.colors || []).map(color => {
-          const activeColorVariants = getActiveVariants(product).filter(variant => variant.color === color.name);
+        ${(product.colors || []).map((color) => {
+          const activeColorVariants = getActiveVariants(product).filter(
+            (variant) => variant.color === color.name
+          );
           const unavailableClass = activeColorVariants.length ? "" : "unavailable";
           const activeClass = color.name === initialVariant.color ? "active" : "";
-          return `<span class="color-dot ${activeClass} ${unavailableClass}" style="background:${color.code}" data-name="${escapeHtml(color.name)}" title="${escapeHtml(color.name)}"></span>`;
+          return `
+            <span
+              class="color-dot ${activeClass} ${unavailableClass}"
+              style="background:${color.code}"
+              data-name="${escapeHtml(color.name)}"
+              title="${escapeHtml(color.name)}"></span>
+          `;
         }).join("")}
       </div>
     </div>
@@ -401,22 +505,30 @@ function renderProduct(product) {
     </div>
 
     <div class="product-note"></div>
+    <div class="cash-rule-box" style="display:none;"></div>
 
     <div class="variant-group">
       <label>Storage</label>
       <div class="variant-options storage-options">
-        ${(product.storageOptions || []).map(storage => `<span class="variant" data-value="${escapeHtml(storage)}">${escapeHtml(storage)}</span>`).join("")}
+        ${(product.storageOptions || []).map((storage) => `
+          <span class="variant" data-value="${escapeHtml(storage)}">${escapeHtml(storage)}</span>
+        `).join("")}
       </div>
     </div>
 
     <div class="variant-group">
       <label>RAM</label>
       <div class="variant-options ram-options">
-        ${(product.ramOptions || []).map(ram => `<span class="variant" data-value="${escapeHtml(ram)}">${escapeHtml(ram)}</span>`).join("")}
+        ${(product.ramOptions || []).map((ram) => `
+          <span class="variant" data-value="${escapeHtml(ram)}">${escapeHtml(ram)}</span>
+        `).join("")}
       </div>
     </div>
 
-    <button class="buy-button view-specs${product.specsPage ? "" : " disabled-button"}" data-url="${product.specsPage || ""}" ${product.specsPage ? "" : "disabled"}>
+    <button
+      class="buy-button view-specs${product.specsPage ? "" : " disabled-button"}"
+      data-url="${product.specsPage || ""}"
+      ${product.specsPage ? "" : "disabled"}>
       ${product.specsPage ? "View Specs" : "Pending Specs"}
     </button>
   `;
@@ -429,9 +541,11 @@ function renderProduct(product) {
 
 function setupSlider(card) {
   const slider = card.querySelector(".product-slider");
-  const slides = slider.querySelectorAll("img");
-  const prev = slider.querySelector(".prev");
-  const next = slider.querySelector(".next");
+  const slides = slider?.querySelectorAll("img") || [];
+  const prev = slider?.querySelector(".prev");
+  const next = slider?.querySelector(".next");
+
+  if (!slider || !prev || !next) return;
 
   if (slides.length <= 1) {
     prev.style.display = "none";
@@ -458,35 +572,103 @@ function setupVariants(card, product, initialVariant) {
   const priceText = card.querySelector(".price-text");
   const colorLabel = card.querySelector(".selected-color");
   const noteEl = card.querySelector(".product-note");
+  const cashRuleBox = card.querySelector(".cash-rule-box");
   const storageBtns = card.querySelectorAll(".storage-options .variant");
   const ramBtns = card.querySelectorAll(".ram-options .variant");
   const colorDots = card.querySelectorAll(".color-dot");
+  const specsBtn = card.querySelector(".view-specs");
 
   let selectedColor = initialVariant.color || product.colors?.[0]?.name || "";
   let selectedStorage = initialVariant.storage || product.storageOptions?.[0] || "";
   let selectedRam = initialVariant.ram || product.ramOptions?.[0] || "";
 
   function getVariantsInColor(color) {
-    return (product.availableVariants || []).filter(variant => variant.color === color);
+    return (product.availableVariants || []).filter((variant) => variant.color === color);
   }
 
   function getActiveVariantsInColor(color) {
-    return getActiveVariants(product).filter(variant => variant.color === color);
+    return getActiveVariants(product).filter((variant) => variant.color === color);
+  }
+
+  function refreshColorDots() {
+    colorDots.forEach((dot) => {
+      dot.classList.toggle("active", dot.dataset.name === selectedColor);
+
+      const activeVariantsInColor = getActiveVariantsInColor(dot.dataset.name);
+      dot.classList.toggle("unavailable", activeVariantsInColor.length === 0);
+    });
+  }
+
+  function findExactVariant() {
+    return getActiveVariants(product).find((variant) => {
+      return (
+        variant.color === selectedColor &&
+        variant.storage === selectedStorage &&
+        variant.ram === selectedRam
+      );
+    });
+  }
+
+  function selectFallbackVariant(activeVariantsInColor) {
+    const exactStorageRam = activeVariantsInColor.find((variant) => {
+      return variant.storage === selectedStorage && variant.ram === selectedRam;
+    });
+
+    if (exactStorageRam) return exactStorageRam;
+
+    const sameStorage = activeVariantsInColor.find((variant) => variant.storage === selectedStorage);
+    if (sameStorage) return sameStorage;
+
+    const sameRam = activeVariantsInColor.find((variant) => variant.ram === selectedRam);
+    if (sameRam) return sameRam;
+
+    return getCheapestVariant(activeVariantsInColor) || activeVariantsInColor[0];
+  }
+
+  function syncSelectionFromVariant(variant) {
+    if (!variant) return;
+    selectedColor = variant.color;
+    selectedStorage = variant.storage;
+    selectedRam = variant.ram;
+  }
+
+  function refreshStorageButtons(activeVariantsInColor) {
+    storageBtns.forEach((btn) => {
+      const value = btn.dataset.value;
+      const hasOption = activeVariantsInColor.some((variant) => variant.storage === value);
+      btn.classList.toggle("disabled", !hasOption);
+      btn.classList.toggle("active", value === selectedStorage);
+    });
+  }
+
+  function refreshRamButtons(activeVariantsInColor) {
+    ramBtns.forEach((btn) => {
+      const value = btn.dataset.value;
+      const hasOption = activeVariantsInColor.some((variant) => variant.ram === value);
+      btn.classList.toggle("disabled", !hasOption);
+      btn.classList.toggle("active", value === selectedRam);
+    });
   }
 
   function setUnavailableState() {
     const colorCode = getColorCode(product, selectedColor);
+
     priceText.innerHTML = `<div class="price-main unavailable-price">Not available.</div>`;
     colorLabel.textContent = selectedColor;
     colorLabel.style.color = colorCode;
     noteEl.textContent = "This selected color or variant is currently unavailable.";
 
-    storageBtns.forEach(btn => {
+    if (cashRuleBox) {
+      cashRuleBox.style.display = "none";
+      cashRuleBox.innerHTML = "";
+    }
+
+    storageBtns.forEach((btn) => {
       btn.classList.remove("active");
       btn.classList.add("disabled");
     });
 
-    ramBtns.forEach(btn => {
+    ramBtns.forEach((btn) => {
       btn.classList.remove("active");
       btn.classList.add("disabled");
     });
@@ -499,171 +681,149 @@ function setupVariants(card, product, initialVariant) {
       priceText.innerHTML = `
         ${pricing.hasSale ? `<div class="old-price">${formatCurrency(pricing.originalTotal)}</div>` : ""}
         <div class="price-main">${formatCurrency(pricing.total)}</div>
-        <div class="total-price">${pricing.planMeta.label}</div>
       `;
+
+      if (cashRuleBox) {
+        const breakdown = getCashRuleBreakdown(pricing.resellerCurrent);
+        cashRuleBox.style.display = "block";
+        cashRuleBox.innerHTML = `
+          <div class="cash-rule-title">${escapeHtml(breakdown.label)}</div>
+          <div class="cash-rule-text">${escapeHtml(breakdown.text)}</div>
+        `;
+      }
     } else {
       priceText.innerHTML = `
         ${pricing.hasSale ? `<div class="old-price">${formatCurrency(pricing.originalTotal)}</div>` : ""}
         <div class="price-main">${formatCurrency(pricing.monthly)} / month</div>
-        <div class="total-price">${formatCurrency(pricing.total)} total • ${pricing.planMeta.months} months</div>
+        <div class="total-price">Total: ${formatCurrency(pricing.total)}</div>
       `;
+
+      if (cashRuleBox) {
+        cashRuleBox.style.display = "none";
+        cashRuleBox.innerHTML = "";
+      }
     }
 
-    const colorCode = getColorCode(product, selectedColor);
-    colorLabel.textContent = selectedColor;
-    colorLabel.style.color = colorCode;
-    noteEl.textContent = getPlanMeta(selectedPaymentPlan).note;
+    colorLabel.textContent = variant.color || "";
+    colorLabel.style.color = getColorCode(product, variant.color || "");
+    noteEl.textContent = pricing.planMeta.note || product.note || "";
   }
 
-  function refreshColorDots() {
-    colorDots.forEach(dot => {
-      const colorName = dot.dataset.name;
-      const hasActive = getActiveVariantsInColor(colorName).length > 0;
-      dot.classList.toggle("unavailable", !hasActive);
-      dot.classList.toggle("active", colorName === selectedColor);
-    });
-  }
-
-  function refreshStorageButtons(activeVariantsInColor) {
-    storageBtns.forEach(btn => {
-      const valid = activeVariantsInColor.some(variant => variant.storage === btn.dataset.value);
-      btn.classList.toggle("disabled", !valid);
-      btn.classList.toggle("active", valid && btn.dataset.value === selectedStorage);
-    });
-  }
-
-  function refreshRamButtons(activeVariantsInColor) {
-    ramBtns.forEach(btn => {
-      const valid = activeVariantsInColor.some(variant => {
-        return variant.storage === selectedStorage && variant.ram === btn.dataset.value;
-      });
-      btn.classList.toggle("disabled", !valid);
-      btn.classList.toggle("active", valid && btn.dataset.value === selectedRam);
-    });
-  }
-
-  function refresh() {
+  function updateUI() {
+    const activeVariantsInColor = getActiveVariantsInColor(selectedColor);
     refreshColorDots();
 
-    const activeVariantsInColor = getActiveVariantsInColor(selectedColor);
-
     if (!activeVariantsInColor.length) {
-      selectedStorage = "";
-      selectedRam = "";
       setUnavailableState();
       return;
     }
 
-    const selectedStorageStillValid = activeVariantsInColor.some(variant => variant.storage === selectedStorage);
+    let activeVariant = findExactVariant();
 
-    if (!selectedStorageStillValid) {
-      const cheapestInColor = getCheapestVariant(activeVariantsInColor);
-      selectedStorage = cheapestInColor.storage;
-      selectedRam = cheapestInColor.ram;
-    }
-
-    const exactMatch = activeVariantsInColor.find(variant => {
-      return variant.storage === selectedStorage && variant.ram === selectedRam;
-    });
-
-    if (!exactMatch) {
-      const sameStorageVariants = activeVariantsInColor.filter(variant => variant.storage === selectedStorage);
-      const fallbackVariant = sameStorageVariants.length ? getCheapestVariant(sameStorageVariants) : getCheapestVariant(activeVariantsInColor);
-      selectedStorage = fallbackVariant.storage;
-      selectedRam = fallbackVariant.ram;
+    if (!activeVariant) {
+      activeVariant = selectFallbackVariant(activeVariantsInColor);
+      syncSelectionFromVariant(activeVariant);
     }
 
     refreshStorageButtons(activeVariantsInColor);
     refreshRamButtons(activeVariantsInColor);
+    renderPriceForVariant(activeVariant);
 
-    const finalMatch = activeVariantsInColor.find(variant => {
-      return variant.storage === selectedStorage && variant.ram === selectedRam;
-    });
-
-    if (finalMatch) {
-      renderPriceForVariant(finalMatch);
-    } else {
-      setUnavailableState();
+    if (specsBtn && product.specsPage) {
+      specsBtn.onclick = () => {
+        window.open(product.specsPage, "_blank", "noopener,noreferrer");
+      };
     }
   }
 
-  colorDots.forEach(dot => {
+  colorDots.forEach((dot) => {
     dot.addEventListener("click", () => {
-      selectedColor = dot.dataset.name;
-      refresh();
+      const colorName = dot.dataset.name;
+      const activeVariantsInColor = getActiveVariantsInColor(colorName);
+
+      selectedColor = colorName;
+
+      if (activeVariantsInColor.length) {
+        const fallback = selectFallbackVariant(activeVariantsInColor);
+        syncSelectionFromVariant(fallback);
+      }
+
+      updateUI();
     });
   });
 
-  storageBtns.forEach(btn => {
+  storageBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       if (btn.classList.contains("disabled")) return;
-
       selectedStorage = btn.dataset.value;
-
-      const activeVariantsInColor = getActiveVariantsInColor(selectedColor);
-      const exactMatch = activeVariantsInColor.find(variant => {
-        return variant.storage === selectedStorage && variant.ram === selectedRam;
-      });
-
-      if (!exactMatch) {
-        const candidates = activeVariantsInColor.filter(variant => variant.storage === selectedStorage);
-        if (candidates.length) {
-          selectedRam = getCheapestVariant(candidates).ram;
-        }
-      }
-
-      refresh();
+      updateUI();
     });
   });
 
-  ramBtns.forEach(btn => {
+  ramBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       if (btn.classList.contains("disabled")) return;
-
       selectedRam = btn.dataset.value;
-
-      const activeVariantsInColor = getActiveVariantsInColor(selectedColor);
-      const exactMatch = activeVariantsInColor.find(variant => {
-        return variant.storage === selectedStorage && variant.ram === selectedRam;
-      });
-
-      if (!exactMatch) {
-        const candidates = activeVariantsInColor.filter(variant => variant.ram === selectedRam);
-        if (candidates.length) {
-          selectedStorage = getCheapestVariant(candidates).storage;
-        }
-      }
-
-      refresh();
+      updateUI();
     });
   });
 
-  refresh();
+  updateUI();
+}
+
+function renderAnnouncementBar() {
+  if (!announcementBar) return;
+
+  const visibleAnnouncements = announcements
+    .filter((item) => item && item.enabled !== false)
+    .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0));
+
+  if (!visibleAnnouncements.length) {
+    announcementBar.innerHTML = "";
+    announcementBar.style.display = "none";
+    return;
+  }
+
+  const topAnnouncement = visibleAnnouncements[0];
+
+  announcementBar.style.display = "block";
+  announcementBar.innerHTML = `
+    <div class="announcement-pill announcement-${escapeHtml(topAnnouncement.type || "info")}">
+      <strong>${escapeHtml(topAnnouncement.title || "Update")}:</strong>
+      <span>${escapeHtml(topAnnouncement.message || "")}</span>
+    </div>
+  `;
+}
+
+function triggerAnnouncementToasts() {
+  if (typeof window.showToast !== "function") return;
+
+  const visibleAnnouncements = announcements
+    .filter(item => item && item.enabled !== false && item.toast === true)
+    .sort((a, b) => (Number(b.priority || 0) - Number(a.priority || 0)));
+
+  visibleAnnouncements.forEach((item, index) => {
+    setTimeout(() => {
+      window.showToast(
+        `${item.title ? item.title + ": " : ""}${item.message || ""}`,
+        item.type || "info",
+        Number(item.duration || 10000)
+      );
+    }, 400 + (index * 350));
+  });
 }
 
 function escapeHtml(value) {
-  return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
-document.addEventListener("click", function (e) {
-  const specsBtn = e.target.closest(".view-specs");
-  if (specsBtn && !specsBtn.disabled) {
-    const url = specsBtn.dataset.url;
-    if (url) {
-      window.location.href = url;
-    }
-  }
-});
-
 if (searchInput) {
-  searchInput.addEventListener("input", function () {
-    filterAndRenderProducts();
-  });
+  searchInput.addEventListener("input", filterAndRenderProducts);
 }
 
 loadProducts();
