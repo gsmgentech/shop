@@ -1,0 +1,31 @@
+[
+  {
+    "id": "pricing-update-apr",
+    "title": "Pricing Update",
+    "message": "Cash promo is now applied automatically on all eligible units.",
+    "type": "info",
+    "priority": 100,
+    "enabled": true,
+    "toast": true,
+    "duration": 15000
+  },
+  {
+    "id": "summer-sale",
+    "title": "Incoming Sale",
+    "message": "Summer sale starts on April 25, 2026. Watch for selected discounted units.",
+    "type": "success",
+    "priority": 90,
+    "enabled": true,
+    "toast": true,
+    "duration": 16000
+  },
+  {
+    "id": "notice-1",
+    "title": "Notice",
+    "message": "Updated pricing is now live.",
+    "type": "info",
+    "priority": 80,
+    "enabled": true,
+    "toast": false
+ }
+]
