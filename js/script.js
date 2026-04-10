@@ -252,11 +252,11 @@ function applyPaymentPlan(priceAfterMarkup, plan) {
   }
 
   if (plan === "6") {
-    return Math.round(value * 1.1);
+    return Math.round(priceAfterMarkup * 1.15);
   }
 
   if (plan === "12") {
-    return Math.round(value * 1.2);
+    return Math.round(priceAfterMarkup * 1.30);
   }
 
   return value;
