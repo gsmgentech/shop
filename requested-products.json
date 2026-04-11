@@ -22,10 +22,10 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8+8GB"],
     "availableVariants": [
-      { "color": "Stellar Blue", "storage": "256GB", "ram": "8+8GB", "price": 15699 },
-      { "color": "Shadow Black", "storage": "256GB", "ram": "8+8GB", "price": 15699 },
-      { "color": "Lunar Titanium", "storage": "256GB", "ram": "8+8GB", "price": 15699 },
-      { "color": "Silk Green", "storage": "256GB", "ram": "8+8GB", "price": 15699 }
+      { "color": "Stellar Blue", "storage": "256GB", "ram": "8+8GB", "price": 15699, "stock": 999 },
+      { "color": "Shadow Black", "storage": "256GB", "ram": "8+8GB", "price": 15699, "stock": 999 },
+      { "color": "Lunar Titanium", "storage": "256GB", "ram": "8+8GB", "price": 15699, "stock": 999 },
+      { "color": "Silk Green", "storage": "256GB", "ram": "8+8GB", "price": 15699, "stock": 999 }
     ]
   },
   {
@@ -47,8 +47,8 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8+8GB", "12+12GB"],
     "availableVariants": [
-      { "color": "Shadow Ash", "storage": "256GB", "ram": "12+12GB", "price": 16699 },
-      { "color": "Blade White", "storage": "256GB", "ram": "12+12GB", "price": 16699 }
+      { "color": "Shadow Ash", "storage": "256GB", "ram": "12+12GB", "price": 16699, "stock": 999 },
+      { "color": "Blade White", "storage": "256GB", "ram": "12+12GB", "price": 16699, "stock": 999 }
     ]
   },
   {
@@ -74,10 +74,10 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8+8GB"],
     "availableVariants": [
-      { "color": "Cyber Blue", "storage": "256GB", "ram": "8+8GB", "price": 12599 },
-      { "color": "Pulse Green", "storage": "256GB", "ram": "8+8GB", "price": 12599 },
-      { "color": "Shadow Ash", "storage": "256GB", "ram": "8+8GB", "price": 12599 },
-      { "color": "Blade White", "storage": "256GB", "ram": "8+8GB", "price": 12599 }
+      { "color": "Cyber Blue", "storage": "256GB", "ram": "8+8GB", "price": 12599, "stock": 999 },
+      { "color": "Pulse Green", "storage": "256GB", "ram": "8+8GB", "price": 12599, "stock": 999 },
+      { "color": "Shadow Ash", "storage": "256GB", "ram": "8+8GB", "price": 12599, "stock": 999 },
+      { "color": "Blade White", "storage": "256GB", "ram": "8+8GB", "price": 12599, "stock": 999 }
     ]
   },
   {
@@ -107,11 +107,11 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8+8GB"],
     "availableVariants": [
-      { "color": "Sleek Black", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
-      { "color": "Titanium Silver", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
-      { "color": "Coral Tides", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
-      { "color": "Sonic Yellow", "storage": "256GB", "ram": "8+8GB", "price": 11699 },
-      { "color": "Moco Cyber Green", "storage": "256GB", "ram": "8+8GB", "price": 11699 }
+      { "color": "Sleek Black", "storage": "256GB", "ram": "8+8GB", "price": 11699, "stock": 999 },
+      { "color": "Titanium Silver", "storage": "256GB", "ram": "8+8GB", "price": 11699, "stock": 999 },
+      { "color": "Coral Tides", "storage": "256GB", "ram": "8+8GB", "price": 11699, "stock": 999 },
+      { "color": "Sonic Yellow", "storage": "256GB", "ram": "8+8GB", "price": 11699, "stock": 999 },
+      { "color": "Moco Cyber Green", "storage": "256GB", "ram": "8+8GB", "price": 11699, "stock": 999 }
     ]
   },
   {
@@ -142,10 +142,10 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8+8GB"],
     "availableVariants": [
-      { "color": "Sleek Black", "storage": "256GB", "ram": "8+8GB", "price": 9499 },
-      { "color": "Titanium Silver", "storage": "256GB", "ram": "8+8GB", "price": 9499 },
-      { "color": "Coral Tides", "storage": "256GB", "ram": "8+8GB", "price": 9499 },
-      { "color": "Sapphire Blue", "storage": "256GB", "ram": "8+8GB", "price": 9499 }
+      { "color": "Sleek Black", "storage": "256GB", "ram": "8+8GB", "price": 9499, "stock": 999 },
+      { "color": "Titanium Silver", "storage": "256GB", "ram": "8+8GB", "price": 9499, "stock": 999 },
+      { "color": "Coral Tides", "storage": "256GB", "ram": "8+8GB", "price": 9499, "stock": 999 },
+      { "color": "Sapphire Blue", "storage": "256GB", "ram": "8+8GB", "price": 9499, "stock": 999 }
     ]
   },
   {
@@ -169,8 +169,8 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["12GB", "12+12GB"],
     "availableVariants": [
-      { "color": "Geek Black", "storage": "256GB", "ram": "12+12GB", "price": 17000 },
-      { "color": "Geek White", "storage": "256GB", "ram": "12+12GB", "price": 17000 }
+      { "color": "Geek Black", "storage": "256GB", "ram": "12+12GB", "price": 17000, "stock": 999 },
+      { "color": "Geek White", "storage": "256GB", "ram": "12+12GB", "price": 17000, "stock": 999 }
     ]
   },
   {
@@ -197,8 +197,8 @@
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["8GB", "12GB"],
     "availableVariants": [
-      { "color": "Geek Black", "storage": "256GB", "ram": "8GB", "price": 9000 },
-      { "color": "Hyper Titanium", "storage": "256GB", "ram": "8GB", "price": 9000 }
+      { "color": "Geek Black", "storage": "256GB", "ram": "8GB", "price": 9000, "stock": 999 },
+      { "color": "Hyper Titanium", "storage": "256GB", "ram": "8GB", "price": 9000, "stock": 999 }
     ]
   }
 ]

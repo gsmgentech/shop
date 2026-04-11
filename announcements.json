@@ -7,7 +7,7 @@
     "priority": 100,
     "enabled": true,
     "toast": true,
-    "duration": 15000
+    "duration": 5000
   },
   {
     "id": "summer-sale",
@@ -17,7 +17,7 @@
     "priority": 90,
     "enabled": true,
     "toast": true,
-    "duration": 16000
+    "duration": 6000
   },
   {
     "id": "notice-1",

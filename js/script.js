@@ -16,6 +16,13 @@ let allProducts = [];
 let resellerConfig = null;
 let selectedPaymentPlan = "cash";
 let announcements = [];
+let pageSettings = {
+  maintenanceMode: {
+    enabled: false,
+    title: "",
+    message: ""
+  }
+};
 
 window.APP_STATE = {
   resellerKey: resellerKey || "",
@@ -29,11 +36,12 @@ window.APP_STATE = {
 
 async function loadProducts() {
   try {
-    const [productsRes, resellerRes, requestedRes, announcementsRes] = await Promise.all([
+    const [productsRes, resellerRes, requestedRes, announcementsRes, settingsRes] = await Promise.all([
       fetch("./products.json"),
       fetch("./resellers.json"),
       fetch("./requested-products.json").catch(() => null),
-      fetch("./announcements.json").catch(() => null)
+      fetch("./announcements.json").catch(() => null),
+      fetch("./settings.json").catch(() => null)
     ]);
 
     if (!productsRes.ok) {
@@ -44,6 +52,7 @@ async function loadProducts() {
     let resellerMap = {};
     let requested = [];
     let loadedAnnouncements = [];
+    let loadedSettings = null;
 
     if (resellerRes && resellerRes.ok) {
       resellerMap = await resellerRes.json();
@@ -55,6 +64,10 @@ async function loadProducts() {
 
     if (announcementsRes && announcementsRes.ok) {
       loadedAnnouncements = await announcementsRes.json();
+    }
+
+    if (settingsRes && settingsRes.ok) {
+      loadedSettings = await settingsRes.json();
     }
 
     resellerConfig = resellerKey ? resellerMap[resellerKey] : null;
@@ -69,11 +82,23 @@ async function loadProducts() {
 
     announcements = Array.isArray(loadedAnnouncements) ? loadedAnnouncements : [];
 
+    if (loadedSettings && typeof loadedSettings === "object") {
+      pageSettings = {
+        ...pageSettings,
+        ...loadedSettings,
+        maintenanceMode: {
+          ...pageSettings.maintenanceMode,
+          ...(loadedSettings.maintenanceMode || {})
+        }
+      };
+    }
+
     applyPageCustomization();
     renderAnnouncementBar();
     setupPaymentPlanButtons();
     rebuildProductList();
     filterAndRenderProducts();
+    applyMaintenanceMode();
     triggerAnnouncementToasts();
   } catch (err) {
     console.error(err);
@@ -454,6 +479,16 @@ function createRequestCard(keyword = "") {
       <button class="buy-button open-request-modal" data-prefill="${escapeHtml(keyword)}">Request a Unit</button>
     </div>
   `;
+
+  const btn = card.querySelector(".open-request-modal");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      if (typeof window.openRequestModal === "function") {
+        window.openRequestModal(btn.dataset.prefill || "");
+      }
+    });
+  }
+
   return card;
 }
 
@@ -471,13 +506,7 @@ function renderProduct(product) {
     ${ribbon ? `<div class="product-ribbon ${ribbon.className}">${ribbon.label}</div>` : ""}
     ${product.isRequested ? `<div class="requested-unit-tag">Requested Unit</div>` : ""}
 
-    <div class="product-slider">
-      ${productImages.map((img, index) => `
-        <img src="${img}" class="${index === 0 ? "active" : ""}" alt="${escapeHtml(product.name)}">
-      `).join("")}
-      <button class="prev" type="button">&#10094;</button>
-      <button class="next" type="button">&#10095;</button>
-    </div>
+    <div class="product-slider"></div>
 
     <div class="product-header">
       <div class="product-name">${escapeHtml(product.name || "Unnamed Product")}</div>
@@ -505,6 +534,7 @@ function renderProduct(product) {
     </div>
 
     <div class="product-note"></div>
+    <div class="variant-stock"></div>
     <div class="cash-rule-box" style="display:none;"></div>
 
     <div class="variant-group">
@@ -533,45 +563,75 @@ function renderProduct(product) {
     </button>
   `;
 
-  setupSlider(card);
+  setupSlider(card, productImages);
   setupVariants(card, product, initialVariant);
 
   return card;
 }
 
-function setupSlider(card) {
+function setupSlider(card, initialImages = []) {
   const slider = card.querySelector(".product-slider");
-  const slides = slider?.querySelectorAll("img") || [];
-  const prev = slider?.querySelector(".prev");
-  const next = slider?.querySelector(".next");
+  if (!slider) return;
 
-  if (!slider || !prev || !next) return;
-
-  if (slides.length <= 1) {
-    prev.style.display = "none";
-    next.style.display = "none";
-    return;
-  }
-
+  let slides = Array.isArray(initialImages) && initialImages.length ? [...initialImages] : ["img/logo.png"];
   let index = 0;
 
-  next.onclick = () => {
-    slides[index].classList.remove("active");
-    index = (index + 1) % slides.length;
-    slides[index].classList.add("active");
+  function render() {
+    slider.innerHTML = `
+      ${slides.map((img, i) => `
+        <img src="${escapeHtml(img)}" class="${i === index ? "active" : ""}" alt="Product image">
+      `).join("")}
+      <button class="prev" type="button">&#10094;</button>
+      <button class="next" type="button">&#10095;</button>
+    `;
+
+    const prev = slider.querySelector(".prev");
+    const next = slider.querySelector(".next");
+
+    if (slides.length <= 1) {
+      if (prev) prev.style.display = "none";
+      if (next) next.style.display = "none";
+      return;
+    }
+
+    if (prev) {
+      prev.onclick = () => {
+        index = (index - 1 + slides.length) % slides.length;
+        render();
+      };
+    }
+
+    if (next) {
+      next.onclick = () => {
+        index = (index + 1) % slides.length;
+        render();
+      };
+    }
+  }
+
+  card._sliderApi = {
+    setImages(newImages = []) {
+      const safeImages = Array.isArray(newImages) && newImages.length ? [...newImages] : ["img/logo.png"];
+      const same =
+        safeImages.length === slides.length &&
+        safeImages.every((img, i) => img === slides[i]);
+
+      if (same) return;
+
+      slides = safeImages;
+      index = 0;
+      render();
+    }
   };
 
-  prev.onclick = () => {
-    slides[index].classList.remove("active");
-    index = (index - 1 + slides.length) % slides.length;
-    slides[index].classList.add("active");
-  };
+  render();
 }
 
 function setupVariants(card, product, initialVariant) {
   const priceText = card.querySelector(".price-text");
   const colorLabel = card.querySelector(".selected-color");
   const noteEl = card.querySelector(".product-note");
+  const stockEl = card.querySelector(".variant-stock");
   const cashRuleBox = card.querySelector(".cash-rule-box");
   const storageBtns = card.querySelectorAll(".storage-options .variant");
   const ramBtns = card.querySelectorAll(".ram-options .variant");
@@ -582,12 +642,21 @@ function setupVariants(card, product, initialVariant) {
   let selectedStorage = initialVariant.storage || product.storageOptions?.[0] || "";
   let selectedRam = initialVariant.ram || product.ramOptions?.[0] || "";
 
-  function getVariantsInColor(color) {
-    return (product.availableVariants || []).filter((variant) => variant.color === color);
-  }
-
   function getActiveVariantsInColor(color) {
     return getActiveVariants(product).filter((variant) => variant.color === color);
+  }
+
+  function getImagesForColor(color) {
+    const colorMap = product.colorImageMap || {};
+    const mapped = colorMap[color];
+
+    if (Array.isArray(mapped) && mapped.length) {
+      return mapped;
+    }
+
+    return Array.isArray(product.images) && product.images.length
+      ? product.images
+      : ["img/logo.png"];
   }
 
   function refreshColorDots() {
@@ -641,13 +710,77 @@ function setupVariants(card, product, initialVariant) {
     });
   }
 
-  function refreshRamButtons(activeVariantsInColor) {
+  function refreshRamButtons() {
     ramBtns.forEach((btn) => {
       const value = btn.dataset.value;
-      const hasOption = activeVariantsInColor.some((variant) => variant.ram === value);
+      const hasOption = getActiveVariants(product).some((variant) => {
+        return (
+          variant.color === selectedColor &&
+          variant.storage === selectedStorage &&
+          variant.ram === value
+        );
+      });
+
       btn.classList.toggle("disabled", !hasOption);
       btn.classList.toggle("active", value === selectedRam);
     });
+  }
+
+  function updateSoldOutRibbon(variant) {
+    let ribbonEl = card.querySelector(".product-ribbon");
+    const baseRibbon = getProductRibbon(product);
+
+    const hasExplicitStock = variant?.stock != null && variant?.stock !== "";
+    const isSoldOutByStock = hasExplicitStock && Number(variant.stock) <= 0;
+
+    if (isSoldOutByStock) {
+      if (!ribbonEl) {
+        ribbonEl = document.createElement("div");
+        card.prepend(ribbonEl);
+      }
+
+      ribbonEl.className = "product-ribbon sold-out";
+      ribbonEl.textContent = "SOLD OUT";
+      return;
+    }
+
+    if (baseRibbon) {
+      if (!ribbonEl) {
+        ribbonEl = document.createElement("div");
+        card.prepend(ribbonEl);
+      }
+
+      ribbonEl.className = `product-ribbon ${baseRibbon.className}`;
+      ribbonEl.textContent = baseRibbon.label;
+      return;
+    }
+
+    if (ribbonEl) {
+      ribbonEl.remove();
+    }
+  }
+
+  function renderStock(variant) {
+    if (!stockEl) return;
+
+    if (variant?.stock == null || variant?.stock === "") {
+      stockEl.innerHTML = "";
+      return;
+    }
+
+    const stock = Number(variant.stock);
+
+    if (stock <= 0) {
+      stockEl.innerHTML = "";
+      return;
+    }
+
+    if (stock <= 3) {
+      stockEl.innerHTML = `<span class="stock-badge low">Only ${stock} left</span>`;
+      return;
+    }
+
+    stockEl.innerHTML = `<span class="stock-badge ok">${stock} available</span>`;
   }
 
   function setUnavailableState() {
@@ -657,6 +790,12 @@ function setupVariants(card, product, initialVariant) {
     colorLabel.textContent = selectedColor;
     colorLabel.style.color = colorCode;
     noteEl.textContent = "This selected color or variant is currently unavailable.";
+
+    if (stockEl) {
+      stockEl.innerHTML = "";
+    }
+
+    updateSoldOutRibbon({ stock: 0 });
 
     if (cashRuleBox) {
       cashRuleBox.style.display = "none";
@@ -672,6 +811,10 @@ function setupVariants(card, product, initialVariant) {
       btn.classList.remove("active");
       btn.classList.add("disabled");
     });
+
+    if (card._sliderApi) {
+      card._sliderApi.setImages(getImagesForColor(selectedColor));
+    }
   }
 
   function renderPriceForVariant(variant) {
@@ -707,6 +850,12 @@ function setupVariants(card, product, initialVariant) {
     colorLabel.textContent = variant.color || "";
     colorLabel.style.color = getColorCode(product, variant.color || "");
     noteEl.textContent = pricing.planMeta.note || product.note || "";
+    renderStock(variant);
+    updateSoldOutRibbon(variant);
+
+    if (card._sliderApi) {
+      card._sliderApi.setImages(getImagesForColor(variant.color || selectedColor));
+    }
   }
 
   function updateUI() {
@@ -726,7 +875,7 @@ function setupVariants(card, product, initialVariant) {
     }
 
     refreshStorageButtons(activeVariantsInColor);
-    refreshRamButtons(activeVariantsInColor);
+    refreshRamButtons();
     renderPriceForVariant(activeVariant);
 
     if (specsBtn && product.specsPage) {
@@ -746,6 +895,10 @@ function setupVariants(card, product, initialVariant) {
       if (activeVariantsInColor.length) {
         const fallback = selectFallbackVariant(activeVariantsInColor);
         syncSelectionFromVariant(fallback);
+      }
+
+      if (card._sliderApi) {
+        card._sliderApi.setImages(getImagesForColor(colorName));
       }
 
       updateUI();
@@ -811,6 +964,35 @@ function triggerAnnouncementToasts() {
       );
     }, 400 + (index * 350));
   });
+}
+
+function applyMaintenanceMode() {
+  const mode = pageSettings?.maintenanceMode;
+
+  const existing = document.getElementById("maintenanceOverlay");
+  if (existing) {
+    existing.remove();
+  }
+
+  document.body.classList.remove("maintenance-active");
+
+  if (!mode || mode.enabled !== true) {
+    return;
+  }
+
+  document.body.classList.add("maintenance-active");
+
+  const overlay = document.createElement("div");
+  overlay.id = "maintenanceOverlay";
+  overlay.className = "maintenance-overlay";
+  overlay.innerHTML = `
+    <div class="maintenance-box">
+      <h2>${escapeHtml(mode.title || "Under Maintenance")}</h2>
+      <p>${escapeHtml(mode.message || "This page is temporarily unavailable. Please check again later.")}</p>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
 }
 
 function escapeHtml(value) {

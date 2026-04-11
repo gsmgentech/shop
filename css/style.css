@@ -933,3 +933,80 @@ h2 {
   from { transform: scaleX(1); }
   to { transform: scaleX(0); }
 }
+
+.variant-stock {
+  margin: 8px 0 6px;
+  min-height: 24px;
+}
+
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stock-badge.ok {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.stock-badge.low {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.stock-badge.out {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+body.maintenance-active {
+  overflow: hidden;
+}
+
+body.maintenance-active main,
+body.maintenance-active .header,
+body.maintenance-active .footer,
+body.maintenance-active .floating-btn {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.maintenance-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(11, 18, 32, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.maintenance-box {
+  width: min(92vw, 520px);
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+.maintenance-box h2 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 1.8rem;
+}
+
+.maintenance-box p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.5;
+}

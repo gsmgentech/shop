@@ -20,9 +20,9 @@
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
     "availableVariants": [
-      { "color": "Blue", "storage": "128GB", "ram": "6GB", "price": 7499 },
-      { "color": "Silver", "storage": "256GB", "ram": "8GB", "price": 8499 },
-      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 8499 }
+      { "color": "Blue", "storage": "128GB", "ram": "6GB", "price": 7499, "stock": 999 },
+      { "color": "Silver", "storage": "256GB", "ram": "8GB", "price": 8499, "stock": 999 },
+      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 8499, "stock": 999 }
     ]
   },
   {
@@ -49,17 +49,17 @@
     "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["4GB", "8GB", "8GB"],
     "availableVariants": [
-      { "color": "Cloudine Blue", "storage": "64GB", "ram": "4GB", "price": 5159 },
-      { "color": "Polaris Titanuim", "storage": "64GB", "ram": "4GB", "price": 5159 },
-      { "color": "Shadow Black", "storage": "64GB", "ram": "4GB", "price": 5159 },
-      { "color": "Sunlike Orange", "storage": "64GB", "ram": "4GB", "price": 5159 },
-      { "color": "Cloudine Blue", "storage": "128GB", "ram": "4GB", "price": 5700 },
-      { "color": "Polaris Titanuim", "storage": "128GB", "ram": "4GB", "price": 5700 },
-      { "color": "Shadow Black", "storage": "128GB", "ram": "4GB", "price": 5700 },
-      { "color": "Cloudine Blue", "storage": "256GB", "ram": "4GB", "price": 7899 },
-      { "color": "Polaris Titanuim", "storage": "256GB", "ram": "4GB", "price": 7899 },
-      { "color": "Shadow Black", "storage": "256GB", "ram": "4GB", "price": 7899 },
-      { "color": "Sunlike Orange", "storage": "256GB", "ram": "4GB", "price": 7899 }
+      { "color": "Cloudine Blue", "storage": "64GB", "ram": "4GB", "price": 5159, "stock": 999 },
+      { "color": "Polaris Titanuim", "storage": "64GB", "ram": "4GB", "price": 5159, "stock": 999 },
+      { "color": "Shadow Black", "storage": "64GB", "ram": "4GB", "price": 5159, "stock": 999 },
+      { "color": "Sunlike Orange", "storage": "64GB", "ram": "4GB", "price": 5159, "stock": 999 },
+      { "color": "Cloudine Blue", "storage": "128GB", "ram": "4GB", "price": 5700, "stock": 999 },
+      { "color": "Polaris Titanuim", "storage": "128GB", "ram": "4GB", "price": 5700, "stock": 999 },
+      { "color": "Shadow Black", "storage": "128GB", "ram": "4GB", "price": 5700, "stock": 999 },
+      { "color": "Cloudine Blue", "storage": "256GB", "ram": "4GB", "price": 7899, "stock": 999 },
+      { "color": "Polaris Titanuim", "storage": "256GB", "ram": "4GB", "price": 7899, "stock": 999 },
+      { "color": "Shadow Black", "storage": "256GB", "ram": "4GB", "price": 7899, "stock": 999 },
+      { "color": "Sunlike Orange", "storage": "256GB", "ram": "4GB", "price": 7899, "stock": 999 }
     ]
   },
   {
@@ -83,9 +83,9 @@
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
     "availableVariants": [
-      { "color": "Shadow Black", "storage": "128GB", "ram": "8GB", "price": 6899 },
-      { "color": "Cyber Silver", "storage": "128GB", "ram": "8GB", "price": 6899 },
-      { "color": "Titanium Gold", "storage": "128GB", "ram": "8GB", "price": 6899 }
+      { "color": "Shadow Black", "storage": "128GB", "ram": "8GB", "price": 6899, "stock": 999 },
+      { "color": "Cyber Silver", "storage": "128GB", "ram": "8GB", "price": 6899, "stock": 999 },
+      { "color": "Titanium Gold", "storage": "128GB", "ram": "8GB", "price": 6899, "stock": 999 }
     ]
   },
   {
@@ -111,17 +111,17 @@
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["4GB", "6GB", "8GB"],
     "availableVariants": [
-      { "color": "Mint Green", "storage": "128GB", "ram": "6GB", "price": 5799 },
-      { "color": "Mint Green", "storage": "128GB", "ram": "4GB", "price": 5299 },
-      { "color": "Mint Green", "storage": "256GB", "ram": "8GB", "price": 6599 },
-      { "color": "Midnight Black", "storage": "256GB", "ram": "8GB", "price": 6599 },
-      { "color": "Midnight Black", "storage": "128GB", "ram": "4GB", "price": 5299 },
-      { "color": "Midnight Black", "storage": "128GB", "ram": "6GB", "price": 5799 },
-      { "color": "Moonlight Blue", "storage": "256GB", "ram": "8GB", "price": 6599 },
-      { "color": "Moonlight Blue", "storage": "128GB", "ram": "6GB", "price": 5799 },
-      { "color": "Moonlight Blue", "storage": "128GB", "ram": "4GB", "price": 5299 },
-      { "color": "Twilight Orange", "storage": "256GB", "ram": "8GB", "price": 6599 },
-      { "color": "Twilight Orange", "storage": "128GB", "ram": "6GB", "price": 5799 }
+      { "color": "Mint Green", "storage": "128GB", "ram": "6GB", "price": 5799, "stock": 999 },
+      { "color": "Mint Green", "storage": "128GB", "ram": "4GB", "price": 5299, "stock": 999 },
+      { "color": "Mint Green", "storage": "256GB", "ram": "8GB", "price": 6599, "stock": 999 },
+      { "color": "Midnight Black", "storage": "256GB", "ram": "8GB", "price": 6599, "stock": 999 },
+      { "color": "Midnight Black", "storage": "128GB", "ram": "4GB", "price": 5299, "stock": 999 },
+      { "color": "Midnight Black", "storage": "128GB", "ram": "6GB", "price": 5799, "stock": 999 },
+      { "color": "Moonlight Blue", "storage": "256GB", "ram": "8GB", "price": 6599, "stock": 999 },
+      { "color": "Moonlight Blue", "storage": "128GB", "ram": "6GB", "price": 5799, "stock": 999 },
+      { "color": "Moonlight Blue", "storage": "128GB", "ram": "4GB", "price": 5299, "stock": 999 },
+      { "color": "Twilight Orange", "storage": "256GB", "ram": "8GB", "price": 6599, "stock": 999 },
+      { "color": "Twilight Orange", "storage": "128GB", "ram": "6GB", "price": 5799, "stock": 999 }
     ]
   },
   {
@@ -146,12 +146,12 @@
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["6GB", "8GB", "12GB"],
     "availableVariants": [
-      { "color": "Black", "storage": "128GB", "ram": "6GB", "price": 5499 },
-      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 6499 },
-      { "color": "Green", "storage": "128GB", "ram": "6GB", "price": 5499 },
-      { "color": "Green", "storage": "256GB", "ram": "8GB", "price": 6499 },
-      { "color": "Purple", "storage": "256GB", "ram": "8GB", "price": 6499 },
-      { "color": "Purple", "storage": "128GB", "ram": "6GB", "price": 5499 }
+      { "color": "Black", "storage": "128GB", "ram": "6GB", "price": 5499, "stock": 999 },
+      { "color": "Black", "storage": "256GB", "ram": "8GB", "price": 6499, "stock": 999 },
+      { "color": "Green", "storage": "128GB", "ram": "6GB", "price": 5499, "stock": 999 },
+      { "color": "Green", "storage": "256GB", "ram": "8GB", "price": 6499, "stock": 999 },
+      { "color": "Purple", "storage": "256GB", "ram": "8GB", "price": 6499, "stock": 999 },
+      { "color": "Purple", "storage": "128GB", "ram": "6GB", "price": 5499, "stock": 999 }
     ]
   },
   {
@@ -175,8 +175,8 @@
     "storageOptions": ["64GB", "128GB"],
     "ramOptions": ["4GB", "6GB"],
     "availableVariants": [
-      { "color": "White Swan", "storage": "128GB", "ram": "6GB", "price": 6199 },
-      { "color": "Forest Owl", "storage": "128GB", "ram": "6GB", "price": 6199 }
+      { "color": "White Swan", "storage": "128GB", "ram": "6GB", "price": 6199, "stock": 999 },
+      { "color": "Forest Owl", "storage": "128GB", "ram": "6GB", "price": 6199, "stock": 999 }
     ]
   },
   {
@@ -200,7 +200,7 @@
     "storageOptions": ["64GB", "128GB"],
     "ramOptions": ["4GB", "6GB"],
     "availableVariants": [
-      { "color": "Ocean Blue", "storage": "64GB", "ram": "4GB", "price": 4200 }
+      { "color": "Ocean Blue", "storage": "64GB", "ram": "4GB", "price": 4200, "stock": 999 }
     ]
   },
   {
@@ -224,8 +224,8 @@
     "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["4GB", "6GB", "8GB"],
     "availableVariants": [
-      { "color": "Orbit Black", "storage": "256GB", "ram": "8GB", "price": 5699 },
-      { "color": "Orbit White", "storage": "256GB", "ram": "8GB", "price": 5699 }
+      { "color": "Orbit Black", "storage": "256GB", "ram": "8GB", "price": 5699, "stock": 999 },
+      { "color": "Orbit White", "storage": "256GB", "ram": "8GB", "price": 5699, "stock": 999 }
     ]
   },
   {
@@ -254,15 +254,15 @@
     "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["4+4GB", "6GB", "8GB"],
     "availableVariants": [
-      { "color": "Midnight Black", "storage": "128GB", "ram": "4+4GB", "price": 4599 },
-      { "color": "Sandy Gold", "storage": "128GB", "ram": "4+4GB", "price": 4599 }
+      { "color": "Midnight Black", "storage": "128GB", "ram": "4+4GB", "price": 4599, "stock": 999 },
+      { "color": "Sandy Gold", "storage": "128GB", "ram": "4+4GB", "price": 4599, "stock": 999 }
     ]
   },
   {
     "id": "poco-c71",
     "name": "POCO C71",
     "badge": "",
-    "status": "sold_out",
+    "status": "active",
     "images": [
       "products/poco-c71-1.png",
       "products/poco-c71-2.png",
@@ -279,12 +279,12 @@
     "storageOptions": ["64GB", "128GB"],
     "ramOptions": ["3GB", "4GB"],
     "availableVariants": [
-      { "color": "Blue", "storage": "64GB", "ram": "3GB", "price": 3699 },
-      { "color": "Black", "storage": "64GB", "ram": "3GB", "price": 3470 },
-      { "color": "Gold", "storage": "64GB", "ram": "3GB", "price": 3699 },
-      { "color": "Blue", "storage": "128GB", "ram": "4GB", "price": 4299 },
-      { "color": "Gold", "storage": "128GB", "ram": "4GB", "price": 4299 },
-      { "color": "Black", "storage": "128GB", "ram": "4GB", "price": 4299 }
+      { "color": "Blue", "storage": "64GB", "ram": "3GB", "price": 3699, "stock": 0 },
+      { "color": "Black", "storage": "64GB", "ram": "3GB", "price": 3470, "stock": 999 },
+      { "color": "Gold", "storage": "64GB", "ram": "3GB", "price": 3699, "stock": 999 },
+      { "color": "Blue", "storage": "128GB", "ram": "4GB", "price": 4299, "stock": 999 },
+      { "color": "Gold", "storage": "128GB", "ram": "4GB", "price": 4299, "stock": 999 },
+      { "color": "Black", "storage": "128GB", "ram": "4GB", "price": 4299, "stock": 999 }
     ]
   },
   {
@@ -306,7 +306,7 @@
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["4GB", "6GB", "8GB"],
     "availableVariants": [
-      { "color": "Bumblebee Edition", "storage": "256GB", "ram": "8GB", "price": 6999 }
+      { "color": "Bumblebee Edition", "storage": "256GB", "ram": "8GB", "price": 6999, "stock": 999 }
     ]
   },
   {
@@ -334,9 +334,10 @@
     "storageOptions": ["128GB", "256GB", "512GB"],
     "ramOptions": ["4GB", "6GB", "8+8GB"],
     "availableVariants": [
-      { "color": "Sapphire Black Blue", "storage": "256GB", "ram": "8+8GB", "price": 8999 },
-      { "color": "Gilded White", "storage": "256GB", "ram": "8+8GB", "price": 8999 },
-      { "color": "Black Pink Gold", "storage": "256GB", "ram": "8+8GB", "price": 8999 }
+      { "color": "Sapphire Black Blue", "storage": "256GB", "ram": "8+8GB", "price": 8999, "stock": 999 },
+      { "color": "Gilded White", "storage": "256GB", "ram": "8+8GB", "price": 8999, "stock": 999 },
+      { "color": "Black Pink Gold", "storage": "256GB", "ram": "8+8GB", "price": 8999, "stock": 999 },
+      { "color": "Moonstone Silver", "storage": "256GB", "ram": "8+8GB", "price": 8999, "stock": 999 }
     ]
   },
   {
@@ -362,9 +363,9 @@
     "storageOptions": ["64GB", "128GB", "256GB"],
     "ramOptions": ["3+5GB", "6GB", "8GB"],
     "availableVariants": [
-      { "color": "Starlit Black", "storage": "64GB", "ram": "3+5GB", "price": 3799 },
-      { "color": "Space Titanium", "storage": "64GB", "ram": "3+5GB", "price": 3799 },
-      { "color": "Aurora Blue", "storage": "64GB", "ram": "3+5GB", "price": 3799 }
+      { "color": "Starlit Black", "storage": "64GB", "ram": "3+5GB", "price": 3799, "stock": 999 },
+      { "color": "Space Titanium", "storage": "64GB", "ram": "3+5GB", "price": 3799, "stock": 999 },
+      { "color": "Aurora Blue", "storage": "64GB", "ram": "3+5GB", "price": 3799, "stock": 999 }
     ]
   },
   {
@@ -387,8 +388,8 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8GB", "12GB", "12+12GB"],
     "availableVariants": [
-      { "color": "Desert Gold", "storage": "512GB", "ram": "12+12GB", "price": 22500 },
-      { "color": "Tidal Blue", "storage": "512GB", "ram": "12+12GB", "price": 22500 }
+      { "color": "Desert Gold", "storage": "512GB", "ram": "12+12GB", "price": 22500, "stock": 999 },
+      { "color": "Tidal Blue", "storage": "512GB", "ram": "12+12GB", "price": 22500, "stock": 999 }
     ]
   },
   {
@@ -412,9 +413,9 @@
     "storageOptions": ["256GB", "512GB"],
     "ramOptions": ["8GB", "12+12GB"],
     "availableVariants": [
-      { "color": "Reddish Brown", "storage": "256GB", "ram": "12+12GB", "price": 19899 },
-      { "color": "Midnight Black", "storage": "256GB", "ram": "12+12GB", "price": 19899 },
-      { "color": "Sunrise Gold", "storage": "256GB", "ram": "12+12GB", "price": 19899 }
+      { "color": "Reddish Brown", "storage": "256GB", "ram": "12+12GB", "price": 19899, "stock": 999 },
+      { "color": "Midnight Black", "storage": "256GB", "ram": "12+12GB", "price": 19899, "stock": 999 },
+      { "color": "Sunrise Gold", "storage": "256GB", "ram": "12+12GB", "price": 19899, "stock": 999 }
     ]
   }
 ]
