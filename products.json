@@ -279,7 +279,7 @@
     "storageOptions": ["64GB", "128GB"],
     "ramOptions": ["3GB", "4GB"],
     "availableVariants": [
-      { "color": "Blue", "storage": "64GB", "ram": "3GB", "price": 3699, "stock": 0 },
+      { "color": "Blue", "storage": "64GB", "ram": "3GB", "price": 3699, "stock": 999 },
       { "color": "Black", "storage": "64GB", "ram": "3GB", "price": 3470, "stock": 999 },
       { "color": "Gold", "storage": "64GB", "ram": "3GB", "price": 3699, "stock": 999 },
       { "color": "Blue", "storage": "128GB", "ram": "4GB", "price": 4299, "stock": 999 },
