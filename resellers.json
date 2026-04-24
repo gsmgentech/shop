@@ -26,5 +26,15 @@
     "heroSubtitle": "Affordable Smartphones with Flexible Payment Options",
     "messengerLink": "https://m.me/dan.samonte.54",
     "headerImage": "img/headergentechservernew1.png"
+  },
+  "alex": {
+    "name": "Alex",
+    "type": "percent",
+    "value": 10,
+    "pageTitle": "Alex's Phone Shop",
+    "heroTitle": "Alex's Phone Shop",
+    "heroSubtitle": "Affordable Smartphones with Flexible Payment Options",
+    "messengerLink": "https://m.me/alex.hernandez.735365",
+    "headerImage": "img/headergentechservernew1.png"
   }
 }
