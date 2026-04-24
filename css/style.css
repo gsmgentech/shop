@@ -968,17 +968,7 @@ body.maintenance-active {
   overflow: hidden;
 }
 
-body.maintenance-active {
-  overflow: hidden;
-}
-
 body.maintenance-active #appContent {
-  filter: blur(6px);
-  pointer-events: none;
-  user-select: none;
-}
-
-#appContent.maintenance-blur {
   filter: blur(6px);
   pointer-events: none;
   user-select: none;
@@ -996,33 +986,6 @@ body.maintenance-active #appContent {
   justify-content: center;
   z-index: 999;
   padding: 24px;
-}
-
-.maintenance-box {
-  position: relative;
-  z-index: 1001;
-}
-
-.maintenance-box {
-  background: #fff;
-  width: min(90%, 460px);
-  border-radius: 14px;
-  padding: 26px 24px;
-  text-align: center;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
-}
-
-.maintenance-box h3 {
-  margin: 0 0 10px;
-  color: #111827;
-  font-size: 1.6rem;
-}
-
-.maintenance-box p {
-  margin: 0;
-  color: #6b7280;
-  font-size: 1rem;
-  line-height: 1.4;
 }
 
 .maintenance-box {
