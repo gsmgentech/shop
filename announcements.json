@@ -12,7 +12,7 @@
   {
     "id": "summer-sale",
     "title": "Incoming Sale",
-    "message": "Summer sale starts on April 25, 2026. Watch for selected discounted units.",
+    "message": "Summer sale starts on May 25, 2026. Watch for selected discounted units.",
     "type": "success",
     "priority": 90,
     "enabled": true,
