@@ -29,13 +29,13 @@
     "toast": false
  },
   {
-    "id": "notice-2",
+    "id": "admin",
     "title": "Notice",
-    "message": "Please contact Genrev if you have urgent orders.",
+    "message": "For urgent order inquiries, please contact our administrator, Genrev.",
     "type": "info",
     "priority": 100,
     "enabled": true,
     "toast": false
-    "duration": 6000
+    "duration": 20000
  }
 ]
