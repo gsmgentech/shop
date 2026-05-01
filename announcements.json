@@ -5,7 +5,7 @@
     "message": "Cash promo is now applied automatically on all eligible units.",
     "type": "info",
     "priority": 100,
-    "enabled": true,
+    "enabled": false,
     "toast": true,
     "duration": 2000
   },
@@ -15,7 +15,7 @@
     "message": "Summer sale starts on May 25, 2026. Watch for selected discounted units.",
     "type": "success",
     "priority": 90,
-    "enabled": true,
+    "enabled": false,
     "toast": true,
     "duration": 6000
   },
@@ -25,7 +25,7 @@
     "message": "Updated pricing is now live.",
     "type": "info",
     "priority": 80,
-    "enabled": true,
+    "enabled": false,
     "toast": false
  }
 ]
