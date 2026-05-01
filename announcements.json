@@ -1,5 +1,15 @@
 [
   {
+    "id": "admin",
+    "title": "Please Contact",
+    "message": "For urgent order inquiries, please contact our administrator, Genrev.",
+    "type": "info",
+    "priority": 100,
+    "enabled": true,
+    "toast": false,
+    "duration": 20000
+  },
+  {
     "id": "pricing-update-apr",
     "title": "Pricing Update",
     "message": "Cash promo is now applied automatically on all eligible units.",
@@ -27,15 +37,5 @@
     "priority": 80,
     "enabled": false,
     "toast": false
-  },
-  {
-    "id": "admin",
-    "title": "Notice",
-    "message": "For urgent order inquiries, please contact our administrator, Genrev.",
-    "type": "info",
-    "priority": 100,
-    "enabled": true,
-    "toast": false
-    "duration": 20000
- }
+  }
 ]
