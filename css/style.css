@@ -1009,3 +1009,13 @@ body.maintenance-active #appContent {
   font-size: 1rem;
   line-height: 1.5;
 }
+
+/* Chrome, Edge, Safari */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+body {
+  scrollbar-width: none;
+}
