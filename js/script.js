@@ -110,7 +110,7 @@ function applyPageCustomization() {
   const defaultPageTitle = "GTServer Official Store";
   const defaultPageSubtitle = "Affordable Smartphones with Flexible Payment Options";
   const defaultBrowserTitle = "Shop";
-  const defaultMessengerLink = "https://m.me/gentechserver";
+  const defaultMessengerLink = "https://me.gentechserver.com/";
   const defaultHeaderImage = "img/headergentechservernew1.png";
 
   if (resellerConfig) {
@@ -1009,3 +1009,36 @@ if (searchInput) {
 }
 
 loadProducts();
+
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener("copy", function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener("cut", function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener("selectstart", function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener("dragstart", function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener("keydown", function (e) {
+  const key = e.key.toLowerCase();
+
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key)) ||
+    (e.ctrlKey && ["u", "s", "p", "c", "x", "a"].includes(key))
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+});

@@ -2,7 +2,7 @@
   {
     "id": "admin",
     "title": "",
-    "message": "For urgent order inquiries, please contact our administrator, Genrev.",
+    "message": "For urgent orders, please use the message button below.",
     "type": "info",
     "priority": 100,
     "enabled": true,
