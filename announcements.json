@@ -1,7 +1,7 @@
 [
   {
     "id": "admin",
-    "title": "Please Contact",
+    "title": "",
     "message": "For urgent order inquiries, please contact our administrator, Genrev.",
     "type": "info",
     "priority": 100,
