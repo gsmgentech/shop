@@ -6,7 +6,7 @@
     "type": "info",
     "priority": 100,
     "enabled": true,
-    "toast": false,
+    "toast": true,
     "duration": 20000
   },
   {
