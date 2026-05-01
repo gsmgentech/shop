@@ -27,7 +27,7 @@
     "priority": 80,
     "enabled": false,
     "toast": false
- },
+  },
   {
     "id": "admin",
     "title": "Notice",
