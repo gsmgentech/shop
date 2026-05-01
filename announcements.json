@@ -7,7 +7,7 @@
     "priority": 100,
     "enabled": true,
     "toast": true,
-    "duration": 20000
+    "duration": 9999999999
   },
   {
     "id": "pricing-update-apr",
