@@ -27,5 +27,15 @@
     "priority": 80,
     "enabled": false,
     "toast": false
+ },
+  {
+    "id": "notice-2",
+    "title": "Notice",
+    "message": "Please contact Genrev if you have urgent orders.",
+    "type": "info",
+    "priority": 100,
+    "enabled": true,
+    "toast": false
+    "duration": 6000
  }
 ]
