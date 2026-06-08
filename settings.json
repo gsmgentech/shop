@@ -1,6 +1,6 @@
 {
   "maintenanceMode": {
-    "enabled": true,
+    "enabled": false,
     "title": "Under Maintenance",
     "message": "We’re updating prices and stock. Please check back later."
   }
