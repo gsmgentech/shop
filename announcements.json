@@ -5,7 +5,7 @@
     "message": "For urgent orders, please use the message button below.",
     "type": "info",
     "priority": 100,
-    "enabled": false,
+    "enabled": true,
     "toast": true,
     "duration": 9999999999
   },
